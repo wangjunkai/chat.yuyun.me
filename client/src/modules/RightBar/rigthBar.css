@@ -1,0 +1,21 @@
+/*rightBar css*/
+.right-bar {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+}
+
+.user-title {
+  height: 60px;
+  border-bottom: 1px solid #cccccc;
+}
+
+.chat-record {
+  flex: 1;
+}
+
+.user-send {
+  flex: 0 1 25%;
+  border-top: 1px solid #cccccc;
+}

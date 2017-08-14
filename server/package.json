@@ -1,0 +1,11 @@
+{
+  "name": "chatServer",
+  "version": "0.0.0",
+  "description": "socket.io chat",
+  "author": "yuyun",
+  "private": true,
+  "dependencies": {
+    "express": "4.13.4",
+    "ws": "^3.0.0"
+  }
+}
