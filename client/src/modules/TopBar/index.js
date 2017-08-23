@@ -8,6 +8,7 @@ export default class TopBar extends Component {
   render() {
     return (
       <section className="top-bar">
+        <div className="site-name">Chat</div>
       </section>
     )
   }

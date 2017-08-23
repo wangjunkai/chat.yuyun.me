@@ -46,15 +46,19 @@
     "webpack-dev-middleware": "^1.11.0",
     "webpack-dev-server": "2.4.5",
     "webpack-manifest-plugin": "1.1.0",
-    "whatwg-fetch": "2.0.3"
+    "whatwg-fetch": "^2.0.3"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
+    "font-awesome": "^4.7.0",
+    "lodash": "^4.17.4",
     "normalize.css": "^7.0.0",
     "prop-types": "^15.5.10",
     "react": "^15.5.0",
     "react-dom": "^15.5.0",
     "react-redux": "^5.0.5",
-    "redux": "^3.5.2"
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "start": "node tools/start.js",

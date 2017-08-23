@@ -21,6 +21,7 @@ module.exports = {
   entry:[
     require.resolve('react-dev-utils/webpackHotDevClient'),
     require.resolve('react-error-overlay'),
+    require.resolve('whatwg-fetch'),
     paths.appIndexJs
   ],
   output:{

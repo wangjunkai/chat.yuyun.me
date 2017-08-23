@@ -3,3 +3,13 @@
   height: 70px;
   background-color: #1891ED;
 }
+.site-name {
+  float: left;
+  line-height: 70px;
+  width: 100px;
+  text-align: center;
+  color: #fff;
+  font-size: 26px;
+  font-weight: 600;
+  user-select: none;
+}
