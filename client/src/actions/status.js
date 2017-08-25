@@ -2,38 +2,28 @@
  * Created by wangjunkai on 2017/7/14.
  */
 
-export const CREATE_ERROR = 'CREATE_ERROR';
+export const CREATE_MESSAGE = 'CREATE_MESSAGE';
 export const SHOW_ERROR = 'SHOW_ERROR';
-export const CLEAR_ERROR = 'CLEAR_ERROR';
-export const AJAX_START = 'AJAX_START';
-export const AJAX_SUCCESS = 'AJAX_SUCCESS';
+export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
+
+export const NEWS_OK = 'NEWS_OK';
+export const NEWS_LOAD = 'NEWS_LOAD';
+export const NEWS_ERROR = 'NEWS_ERROR';
+
 export const API = 'api';
 export const initState = {
   type: '',
   show: false,
-  [AJAX_START]: {},
-  [AJAX_SUCCESS]: {},
-  [CREATE_ERROR]: {},
-  [CLEAR_ERROR]:{}
+  delay: '',
+  class: NEWS_LOAD,
+  date:'',
+  message: ''
 };
-export const ajaxStart = startData => ({
-  type: AJAX_START,
-  [AJAX_START]: startData
-});
-export const ajaxSuccess = successData => ({
-  type: AJAX_SUCCESS,
-  [AJAX_SUCCESS]: successData
-});
-export const createError = errorData => ({
-  type: CREATE_ERROR,
+export const createMessage = messageData => ({
+  type: CREATE_MESSAGE,
   date: new Date().getTime(),
-  [CREATE_ERROR]: errorData
+  ...messageData
 });
-
-export const showError = () => ({
-  type: SHOW_ERROR
-});
-
-export const clearError = () => ({
-  type: CLEAR_ERROR
+export const clearMessage = () => ({
+  type: CLEAR_MESSAGE
 });

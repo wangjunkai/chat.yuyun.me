@@ -3,6 +3,7 @@
  */
 
 import * as status from '../actions/status'
+import _ from 'lodash'
 
 const rootApi = '//localhost:12301/api/';
 const initOptions = {
@@ -16,43 +17,30 @@ const req = options => {
   const {url, method, headers, body} = Object.assign({}, initOptions, options);
   return fetch(rootApi + url, {method, headers, body})
 };
-const ajaxState = action => {
-  let actionNew = [];
-  let actions = action.actions;
-  actionNew[0] = actions[0] ? actions[0] : status.ajaxStart;
-  actionNew[1] = actions[1] ? actions[1] : status.ajaxSuccess;
-  actionNew[2] = actions[2] ? actions[2] : status.createError;
-  return actionNew;
-};
-let ajaxNum = 0;
-let time;
+
 export default store => next => action => {
   if (!action[status.API]) {
     return next(action);
   }
-  const [ajaxStart, ajaxSuccess, ajaxError] = ajaxState(action);
-  const id = ajaxNum++;
-  next(ajaxStart({id,message: '加载中...'}));
-  next(action);
   return req(action)
     .then(res => {
       if (res.status != 200) {
-        return Promise.reject({id,state: false, message: res.statusText})
+        return _.assign({}, action, {response: {status: true}});
+        //return Promise.reject({message: res.statusText, delay: 2000, class: status.NEWS_ERROR})
       }
+
       res.json().then(function (json) {
-        if (!res.ok) {
-          return Promise.reject({id,...json})
-        } else {
-          return Object.assign({}, action, {id,...json});
-        }
+        return _.assign({}, action, {response: json});
       })
     })
     .then(
       res => {
-        next(ajaxSuccess(res))
+        setTimeout(() => {
+          next(res)
+        }, 500);
       },
       err => {
-        next(ajaxError(err));
+        next(status.createMessage(err));
       }
     );
 };

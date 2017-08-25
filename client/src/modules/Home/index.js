@@ -17,9 +17,13 @@ class AuthTmp extends Component {
 
   //表单状态
   state = {
-    formNo: false,
+    formNo: false,//是否通过验证
     formType: AuthActions.TOURISTS,
-    formBody: this.props.auth.body
+    formBody: {
+      name: '',
+      mail: '',
+      password: ''
+    }
   };
 
 //登陆注册
@@ -35,6 +39,7 @@ class AuthTmp extends Component {
       }
       that.setState({formNo: true});
     } else {
+      that.props.actions.createMessage({message: '请等待...', class: StatusActions.NEWS_LOAD});
       that.props.actions[this.state.formType](auth)
     }
   };
@@ -49,13 +54,28 @@ class AuthTmp extends Component {
     } else {
       //初始化状态
       _.each(this.refs, (tag) => tag.value = '');
-      this.setState({formNo: false, formType: type, formBody: this.props.auth.body})
+      this.setState({formNo: false, formType: type})
+    }
+  };
+  componentWillMount = () => {
+    const {actions} = this.props;
+    actions.initAuth()
+  };
+  componentWillReceiveProps = (nextProps) => {
+    const {actions, auth} = nextProps;
+    if (auth.isLogin && !auth.isAutoLogin && auth.isLogin != this.props.auth.isLogin) {
+      if (auth.isLogin && !auth.isAutoLogin) {
+        actions.createMessage({message: '登入成功', delay: 2000, class: StatusActions.NEWS_OK});
+        return false;
+      }
     }
   };
 
   render() {
-    const {actions, auth, status} = this.props;
-    debugger
+    const {actions, auth} = this.props;
+    if (auth.isLogin) {
+      return null;
+    }
     const touristsClass = classNames({
       form: true,
       no: this.state.formNo
@@ -143,11 +163,28 @@ class AuthTmp extends Component {
 class Loading extends Component {
   componentDidUpdate() {
     const prop = this.props;
-    if (prop.status.type == StatusActions.CREATE_ERROR && prop.status.show) {
+    if (prop.status.show && prop.status.delay) {
       setTimeout(() => {
-        prop.actions.clearError();
-      }, 1500)
+        prop.actions.clearMessage();
+      }, prop.status.delay)
     }
+  }
+
+  initClass() {
+    const status = this.props.status;
+    let c = {'fa': true};
+    switch (status.class) {
+      case StatusActions.NEWS_LOAD:
+        _.assign(c, {'fa-spinner': true, 'fa-spin': true});
+        break;
+      case StatusActions.NEWS_OK:
+        _.assign(c, {'fa-check': true});
+        break;
+      case StatusActions.NEWS_ERROR:
+        _.assign(c, {'fa-times': true});
+        break;
+    }
+    return c;
   }
 
   render() {
@@ -157,13 +194,12 @@ class Loading extends Component {
       'popup-bg': true,
       none: !status.show
     });
-    const type = status[status.type];
-
+    const newsTypeClass = classNames(this.initClass());
     return (
       <div className={popClass}>
         <div className="popup">
-          <i className="fa fa-spinner fa-spin"></i>
-          <span style={{marginLeft: '5px'}}>{type && type['message']}</span>
+          <i className={newsTypeClass}></i>
+          <span style={{marginLeft: '5px'}}>{status.message}</span>
         </div>
       </div>
     )
@@ -174,7 +210,7 @@ class Loading extends Component {
 const App = ({actions, auth, status}) => (
   <div className="app">
     <div className="container">
-      <TopBar />
+      <TopBar actions={actions} auth={auth}/>
       <div className="content-container">
         <ToolBar/>
         <LeftBar/>
