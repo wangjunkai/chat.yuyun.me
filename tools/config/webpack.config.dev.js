@@ -69,7 +69,7 @@ module.exports = {
         ],
         loader: require.resolve('file-loader'),
         options: {
-          name: 'static/media/[name].[hash:8].[ext]',
+          name: 'static/img/[name].[hash:8].[ext]',
         },
       },
       //小于指定字节的请求返回data url
@@ -78,7 +78,7 @@ module.exports = {
         loader: require.resolve('url-loader'),
         options: {
           limit: 10000,
-          name: 'static/media/[name].[hash:8].[ext]',
+          name: 'static/img/[name].[hash:8].[ext]',
         }
       },
       //babel 编译

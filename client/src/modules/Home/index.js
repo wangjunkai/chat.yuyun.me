@@ -217,6 +217,10 @@ const App = ({actions, auth, status}) => (
         <RightBar/>
       </div>
     </div>
+    <div className="app-bg">
+      <img src="public/image/home-bg-2.jpg" alt=""/>
+      <div className="rgba"></div>
+    </div>
     <AuthTmp actions={actions} auth={auth}/>
     <Loading actions={actions} status={status}/>
   </div>

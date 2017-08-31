@@ -29,6 +29,7 @@ button {
 
 .app {
   height: 100%;
+  display: flex;
 }
 
 .container {
@@ -36,12 +37,33 @@ button {
   flex-direction: column;
   height: 100%;
   width: 100%;
+  z-index: 1;
 }
 
 .content-container {
   flex: 1;
   display: flex;
   flex-direction: row;
+}
+
+.app-bg {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  overflow: hidden;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  background-color: #000;
+}
+
+.app-bg .rgba {
+  background-color: rgba(0, 0, 0, 0);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, .6) 75%, rgba(0, 0, 0, .8) 100%);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .popup-container {
@@ -68,20 +90,22 @@ button {
   background-size: 200% 100%;
   animation: auth-bg-move 10s ease infinite;
 }
-.popup-container .popup{
+
+.popup-container .popup {
   z-index: 12;
   color: #ffffff;
   min-width: 130px;
   line-height: 25px;
   min-height: 25px;
   border-radius: 3px;
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0, 0, 0, 0.3);
   position: absolute;
   top: 5%;
   text-align: center;
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.4);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.4);
   font-size: 14px;
 }
+
 .auth {
   position: relative;
   top: -15%;

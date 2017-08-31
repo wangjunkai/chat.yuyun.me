@@ -1,23 +1,22 @@
 /*TopBar css*/
 .top-bar{
-  height: 70px;
-  background-color: #58b1d4;
+  height: 80px;
 }
 .site-name {
   float: left;
   line-height: 70px;
   width: 100px;
-  text-align: center;
   color: #fff;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 600;
   user-select: none;
+  margin-left:80px;
 }
 .logout{
   float: right;
   font-size: 14px;
   line-height: 70px;
   color: #fff;
-  margin-right: 20px;
+  margin-right: 30px;
   cursor: pointer;
 }

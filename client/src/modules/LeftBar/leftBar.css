@@ -1,5 +1,9 @@
 /*TopBar css*/
 .left-bar{
   min-width:280px;
-  border-right: 1px solid #cccccc;
+  border-top-left-radius:5px;
+  border-top-right-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.4);
+  overflow: hidden;
 }
