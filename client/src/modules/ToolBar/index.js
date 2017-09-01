@@ -8,7 +8,11 @@ export default class ToolBar extends Component {
   render() {
     return (
       <section className="tool-bar">
-
+        <div className="tool-bar-buttons">
+          <i className="fa fa-commenting-o"></i>
+          <i className="fa fa-users"></i>
+          <i className="fa fa-bars"></i>
+        </div>
       </section>
     )
   }

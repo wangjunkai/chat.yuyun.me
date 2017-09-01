@@ -23,7 +23,7 @@ export default function auth(preState = initUser, action) {
       break;
     case LOGOUT:
       sessionStorage.removeItem(storageId);
-      return _.assign({}, preState, {isLogin: false});
+      return _.assign({}, preState, {isLogin: false,isAutoLogin:false});
       break;
     case REGISTER:
       break;

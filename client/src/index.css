@@ -27,6 +27,33 @@ button {
   display: none !important;
 }
 
+.fc-fx {
+  display: flex;
+}
+
+.fc-ud {
+  flex-direction: column;
+}
+
+.fc-lr {
+  flex-direction: row;
+}
+
+.fc-at {
+  display: flex;
+  flex: auto;
+}
+
+.fc-nu {
+  display: flex;
+  flex: 0 0 auto;
+}
+
+.fc-ct {
+  align-items: center;
+  justify-content: center;
+}
+
 .app {
   height: 100%;
   display: flex;
@@ -59,7 +86,7 @@ button {
 
 .app-bg .rgba {
   background-color: rgba(0, 0, 0, 0);
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, .6) 75%, rgba(0, 0, 0, .8) 100%);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, .4) 75%, rgba(0, 0, 0, .6) 100%);
   position: absolute;
   top: 0;
   width: 100%;
@@ -77,6 +104,11 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.popup-container.popup-deep-bg {
+  background-color: rgba(0, 0, 0, .3);
+  z-index: 11;
 }
 
 .popup-container.popup-bg {
@@ -107,8 +139,8 @@ button {
 }
 
 .auth {
-  position: relative;
-  top: -15%;
+  position: absolute;
+  top: 20%;
   font-size: 14px;
   text-align: center;
   color: #ffffff;

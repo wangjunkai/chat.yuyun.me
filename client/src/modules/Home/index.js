@@ -205,9 +205,18 @@ class Loading extends Component {
     )
   }
 }
+class Modal extends Component {
+  render() {
+    const modal = this.props.modal;
+    const ModalDom = modal.show ? modal.dom : () => {
+        return null
+      };
+    return <ModalDom/>
+  }
+}
 
 //APP
-const App = ({actions, auth, status}) => (
+const App = ({actions, auth, modal, status}) => (
   <div className="app">
     <div className="container">
       <TopBar actions={actions} auth={auth}/>
@@ -223,11 +232,14 @@ const App = ({actions, auth, status}) => (
     </div>
     <AuthTmp actions={actions} auth={auth}/>
     <Loading actions={actions} status={status}/>
+    <Modal modal={modal}/>
+
   </div>
 );
 const mapStateToProps = function (state, ownProps) {
   return {
     auth: state.auth,
+    modal: state.modal,
     status: state.status
   }
 };

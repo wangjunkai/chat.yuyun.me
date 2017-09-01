@@ -2,7 +2,9 @@
  *
  * Created by wangjunkai on 2017/8/1.
  */
-import {CREATE_MESSAGE, CLEAR_MESSAGE, initState} from '../actions/status'
+import {
+  CREATE_MESSAGE, CLEAR_MESSAGE, initState,
+} from '../actions/status'
 
 
 export default function status(preState = initState, action) {
