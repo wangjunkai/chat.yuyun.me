@@ -144,7 +144,8 @@ class AuthTmp extends Component {
       <div className="popup-container auth-bg">
         <div className="auth">
           <span className="auth-logo">Free Chat</span>
-          <p className="auth-subtitle">一个自由聊天的地方</p>
+
+          <p className="auth-subtitle">一个畅聊的地方</p>
           <div className="auth-content">
             {AuthForm}
             {/*<Tourists actions={actions} auth={auth}/>*/}
@@ -190,8 +191,7 @@ class Loading extends Component {
   render() {
     const status = this.props.status;
     const popClass = classNames({
-      'popup-container': true,
-      'popup-bg': true,
+      'popup-container popup-bg': true,
       none: !status.show
     });
     const newsTypeClass = classNames(this.initClass());
@@ -206,12 +206,15 @@ class Loading extends Component {
   }
 }
 class Modal extends Component {
+  componentDidUpdate(){
+    const modal = this.props.modal;
+  }
   render() {
     const modal = this.props.modal;
-    const ModalDom = modal.show ? modal.dom : () => {
+    const ModalDom = modal.show ? modal.dom.bind(this, {class: modal.class}) : () => {
         return null
       };
-    return <ModalDom/>
+    return <ModalDom/>;
   }
 }
 
@@ -226,10 +229,10 @@ const App = ({actions, auth, modal, status}) => (
         <RightBar/>
       </div>
     </div>
-    <div className="app-bg">
-      <img src="public/image/home-bg-2.jpg" alt=""/>
-      <div className="rgba"></div>
-    </div>
+    {/*    <div className="app-bg">
+     <img src="public/image/home-bg-2.jpg" alt=""/>
+     <div className="rgba"></div>
+     </div>*/}
     <AuthTmp actions={actions} auth={auth}/>
     <Loading actions={actions} status={status}/>
     <Modal modal={modal}/>

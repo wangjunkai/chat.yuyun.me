@@ -3,18 +3,21 @@
   width: 80px;
 }
 
+.tool-bar-buttons {
+  margin-top: 40px;
+}
+
 .tool-bar-buttons .fa {
   display: block;
   font-size: 18px;
   text-align: center;
   margin-bottom: 28px;
-  color: #fff;
   cursor: pointer;
   position: relative;
 }
 
 .tool-bar-buttons .fa:after {
-  content:'';
+  content: '';
   width: 45px;
   line-height: 25px;
   display: inline-block;
@@ -23,21 +26,26 @@
   background-color: rgb(53, 53, 53);
   font-size: 12px;
   border-radius: 3px;
+  color: #ffffff;
   top: -4px;
   opacity: 0;
   left: 50px;
   transition: all .2s ease-out;
 }
-.tool-bar-buttons .fa:hover:after{
+
+.tool-bar-buttons .fa:hover:after {
   left: 55px;
   opacity: 1;
 }
+
 .tool-bar-buttons .fa-commenting-o:hover:after {
   content: '消息';
 }
+
 .tool-bar-buttons .fa-users:hover:after {
   content: '好友';
 }
+
 .tool-bar-buttons .fa-bars:hover:after {
   content: '其他';
 }

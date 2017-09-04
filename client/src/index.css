@@ -18,7 +18,9 @@ input, textarea, button {
   border: 0;
   outline: 0;
 }
-
+input::selection {
+  background-color: rgba(0, 0, 0, 0.2);
+}
 button {
   -webkit-appearance: button;
 }
@@ -53,12 +55,22 @@ button {
   align-items: center;
   justify-content: center;
 }
-
 .app {
   height: 100%;
   display: flex;
+  background-color: #f1f1f1;
+  color: #404040;
 }
-
+.modal{
+  position: absolute;
+  top: 20%;
+  font-size: 14px;
+  text-align: center;
+  background-color: #fff;
+  color: #000;
+  border-radius: 2px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,.2);
+}
 .container {
   display: flex;
   flex-direction: column;
@@ -71,6 +83,7 @@ button {
   flex: 1;
   display: flex;
   flex-direction: row;
+  margin-top:-20px;
 }
 
 .app-bg {
@@ -106,17 +119,17 @@ button {
   justify-content: center;
 }
 
-.popup-container.popup-deep-bg {
+.popup-deep-bg {
   background-color: rgba(0, 0, 0, .3);
   z-index: 11;
 }
 
-.popup-container.popup-bg {
+.popup-bg {
   background-color: rgba(0, 0, 0, 0);
   z-index: 11;
 }
 
-.popup-container.auth-bg {
+.auth-bg {
   background: linear-gradient(45deg, #53d4a1 10%, #99bdda 90%);
   -webkit-background-size: 200% 100%;
   background-size: 200% 100%;
