@@ -28,7 +28,10 @@ export const initState = {
 export const initModalData = {
   type: '',
   show:false,
-  dom: ('')
+  dom: () => {
+    return null
+  },
+  class:''
 };
 
 export const createMessage = messageData => ({

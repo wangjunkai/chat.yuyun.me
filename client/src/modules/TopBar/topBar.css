@@ -139,3 +139,10 @@
   width: 100%;
   padding: 8px 0 5px 0;
 }
+.user-modal .user-modal-hint{
+  font-size: 12px;
+  line-height:1.4;
+  margin:auto;
+  width:55%;
+  color: rgb(68, 155, 117);
+}

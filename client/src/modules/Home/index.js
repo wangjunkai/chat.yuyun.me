@@ -206,15 +206,54 @@ class Loading extends Component {
   }
 }
 class Modal extends Component {
-  componentDidUpdate(){
+  state = {
+    show: false,
+    class: '',
+    bgClass: ''
+  };
+
+  componentDidUpdate(pre) {
+    const that = this;
     const modal = this.props.modal;
+    //跟新modal的动画流程
+    if (modal.class !== pre.modal.class || modal.show !== pre.modal.show) {
+      if (modal.show) {
+        setTimeout(() => {
+          that.setState({show: true});
+          setTimeout(() => (
+            that.setState({class: modal.class, bgClass: 'transition-opacity'})
+          ), 100)
+        }, 0)
+      } else {
+        setTimeout(() => {
+          that.setState({class: '', bgClass: ''});
+          setTimeout(() => (
+            that.setState({show: false})
+          ), 600)
+        }, 0)
+      }
+    }
   }
+
   render() {
     const modal = this.props.modal;
-    const ModalDom = modal.show ? modal.dom.bind(this, {class: modal.class}) : () => {
-        return null
-      };
-    return <ModalDom/>;
+    const ModalDom = modal.dom.bind(this);
+    const containerClass = classNames({
+      'popup-container popup-deep-bg': true,
+      'none': !this.state.show,
+      [this.state.bgClass]: true
+    });
+    const modalClass = classNames({
+      'modal user-modal fc-fx fc-ud': true,
+      [this.state.class]: true
+    });
+    return (
+      <div className={containerClass}>
+        <div className={modalClass}>
+          <ModalDom/>
+        </div>
+      </div>
+    );
   }
 }
 

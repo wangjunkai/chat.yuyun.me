@@ -18,13 +18,18 @@ input, textarea, button {
   border: 0;
   outline: 0;
 }
+
 input::selection {
   background-color: rgba(0, 0, 0, 0.2);
 }
+
 button {
   -webkit-appearance: button;
 }
-
+.no-event{
+  pointer-events: none;
+  color: #989898;
+}
 .none {
   display: none !important;
 }
@@ -55,22 +60,47 @@ button {
   align-items: center;
   justify-content: center;
 }
+
 .app {
   height: 100%;
   display: flex;
   background-color: #f1f1f1;
   color: #404040;
 }
-.modal{
+
+.modal {
   position: absolute;
-  top: 20%;
   font-size: 14px;
   text-align: center;
   background-color: #fff;
   color: #000;
   border-radius: 2px;
-  box-shadow: 1px 1px 3px rgba(0,0,0,.2);
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .2);
+  top: 100%;
+  transition: top .5s cubic-bezier(0.49, -0.07, 0.15, 1.05)
 }
+
+.modal.transition-top {
+  top: 20%;
+  transition: top .5s cubic-bezier(0.49, -0.07, 0.15, 1.05)
+  /*animation: translate-y .5 cubic-bezier(0.49, -0.07, 0.15, 1.05);*/
+}
+
+@keyframes translate-y {
+  0% {
+    transform: translatey(100%)
+  }
+  50% {
+    transform: translatey(70%)
+  }
+  70% {
+    transform: translatey(40%)
+  }
+  100% {
+    transform: translatey(20%)
+  }
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -83,7 +113,7 @@ button {
   flex: 1;
   display: flex;
   flex-direction: row;
-  margin-top:-20px;
+  margin-top: -20px;
 }
 
 .app-bg {
@@ -122,6 +152,13 @@ button {
 .popup-deep-bg {
   background-color: rgba(0, 0, 0, .3);
   z-index: 11;
+  opacity: 0;
+  transition: opacity .5s cubic-bezier(0.49, -0.07, 0.15, 1.05)
+}
+
+.popup-deep-bg.transition-opacity {
+  opacity: 1;
+  transition: opacity .5s cubic-bezier(0.49, -0.07, 0.15, 1.05)
 }
 
 .popup-bg {
@@ -145,7 +182,7 @@ button {
   border-radius: 3px;
   background-color: rgba(0, 0, 0, 0.3);
   position: absolute;
-  top: 5%;
+  top: 10%;
   text-align: center;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.4);
   font-size: 14px;
