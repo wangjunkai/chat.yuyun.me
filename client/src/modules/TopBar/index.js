@@ -24,7 +24,7 @@ export default class TopBar extends Component {
           <div>个人资料</div>
         </div>
         {disable ? (<div className="user-modal-hint">
-            <i className="fa fa-exclamation-circle" style={{marginRight:'2px'}}></i>
+            <i className="fa fa-exclamation-circle" style={{marginRight: '2px'}}></i>
             您当前是游客登入，无法修改个人信息，请正常登录或注册
           </div>) : ''}
         <div className="user-modal-form fc-at fc-ud">
@@ -46,27 +46,27 @@ export default class TopBar extends Component {
           </div>
         </div>
         <div className="bottom fc-nu">
-          <div className="logout-button fc-nu fc-ct" onClick={this.handleLogout.bind(this)}>注销</div>
+          <div className="app-button logout-button fc-nu fc-ct" onClick={this.handleLogout}>注销</div>
           <div className="fc-at"></div>
-          <div className="close-button fc-nu fc-ct" onClick={this.handleCloseModal.bind(this)}>关闭</div>
+          <div className="close-button fc-nu fc-ct" onClick={this.handleCloseModal}>关闭</div>
           <div className={saveClass}>保存</div>
         </div>
       </div>
     )
   };
 
-  handleCloseModal() {
+  handleCloseModal = () => {
     const action = this.props.actions;
     action.clearModal();
   }
 
-  handleLogout() {
+  handleLogout = () => {
     const action = this.props.actions;
     action.clearModal();
     action.logout();
   }
 
-  handleShowModal() {
+  handleShowModal = () => {
     const action = this.props.actions;
     action.createModal({dom: this.UserInfoModal, class: 'transition-top'})
   }
@@ -90,7 +90,7 @@ export default class TopBar extends Component {
         </div>
         <div className="fc-fx fc-at fc-ct user-info">
           <div className="fc-at"></div>
-          <div className="fc-nu fc-ct name-button fa fa-user" onClick={this.handleShowModal.bind(this)}></div>
+          <div className="fc-nu fc-ct name-button fa fa-user" onClick={this.handleShowModal}></div>
         </div>
 
       </section>

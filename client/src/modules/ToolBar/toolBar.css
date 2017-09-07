@@ -16,6 +16,10 @@
   position: relative;
 }
 
+.tool-bar-buttons .fa.active {
+  color: rgb(68, 155, 117);
+}
+
 .tool-bar-buttons .fa:after {
   content: '';
   width: 45px;
