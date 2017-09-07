@@ -72,7 +72,6 @@ class AuthTmp extends Component {
   };
 
   render() {
-    debugger
     const {actions, auth} = this.props;
     if (auth.isLogin) {
       return null;
