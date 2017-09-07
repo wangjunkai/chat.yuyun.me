@@ -205,6 +205,8 @@ class Loading extends Component {
     )
   }
 }
+
+//弹出框
 class Modal extends Component {
   state = {
     show: false,
@@ -268,10 +270,6 @@ const App = ({actions, auth, modal, status}) => (
         <RightBar/>
       </div>
     </div>
-    {/*    <div className="app-bg">
-     <img src="public/image/home-bg-2.jpg" alt=""/>
-     <div className="rgba"></div>
-     </div>*/}
     <AuthTmp actions={actions} auth={auth}/>
     <Loading actions={actions} status={status}/>
     <Modal modal={modal}/>
@@ -282,7 +280,7 @@ const mapStateToProps = function (state, ownProps) {
   return {
     auth: state.auth,
     modal: state.modal,
-    status: state.status
+    status: state.status,
   }
 };
 

@@ -108,17 +108,8 @@
 }
 
 .user-modal .logout-button {
-  border-radius: 50%;
-  box-shadow: 1px 1px 3px #777;
   width: 40px;
   height: 40px;
-  background-color: #4dbb91;
-  color: #fff;
-  transition:background-color .5s ease;
-}
-.user-modal .logout-button:hover{
-  background-color: rgb(68, 155, 117);
-  transition:background-color .5s ease;
 }
 .user-modal-form {
   padding: 0 30px;

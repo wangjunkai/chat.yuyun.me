@@ -26,10 +26,12 @@ input::selection {
 button {
   -webkit-appearance: button;
 }
-.no-event{
+
+.no-event {
   pointer-events: none;
   color: #989898;
 }
+
 .none {
   display: none !important;
 }
@@ -48,7 +50,7 @@ button {
 
 .fc-at {
   display: flex;
-  flex: auto;
+  flex: 1;
 }
 
 .fc-nu {
@@ -245,6 +247,21 @@ button {
   background-color: #afafaf;
   transition: 0.3s;
   cursor: pointer;
+}
+
+.app-button {
+  cursor: pointer;
+  border-radius: 50%;
+  -webkit-box-shadow: 1px 1px 3px #777;
+  box-shadow: 1px 1px 3px #777;
+  background-color: rgb(77, 187, 145);
+  color: #fff;
+  transition: background-color .5s ease;
+}
+
+.app-button:hover {
+  background-color: rgb(68, 155, 117);
+  transition: background-color .5s ease;
 }
 
 .form_button:hover {

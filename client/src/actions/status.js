@@ -16,6 +16,14 @@ export const NEWS_ERROR = 'NEWS_ERROR';
 export const CREATE_MODAL = 'CREATE_MODAL';
 export const CLEAR_MODAL = 'CLEAR_MODAL';
 
+//窗口切换状态
+export const ACTIVE_WINDOW = 'ACTIVE_WINDOW';
+export const chat_info = 'chat_info';
+export const friends_info = 'friends_info';
+export const ACTIVE_CHAT = 'ACTIVE_CHAT';
+export const ACTIVE_FRIEND = 'ACTIVE_FRIEND';
+
+
 export const API = 'api';
 export const initState = {
   type: '',
@@ -27,13 +35,21 @@ export const initState = {
 };
 export const initModalData = {
   type: '',
-  show:false,
+  show: false,
   dom: () => {
     return null
   },
-  class:''
+  class: ''
 };
-
+export const initWindowData = {
+  type: '',
+  windowType: chat_info,
+  chatId:'',
+  friendId:'',
+  url: '',
+  method: 'GET',
+  [API]: true,
+};
 export const createMessage = messageData => ({
   type: CREATE_MESSAGE,
   date: new Date().getTime(),
@@ -49,4 +65,17 @@ export const createModal = modalData => ({
 });
 export const clearModal = () => ({
   type: CLEAR_MODAL
+});
+
+export const activeWindow = windowData => ({
+  type: ACTIVE_WINDOW,
+  ...windowData
+});
+export const activeChat = chatData => ({
+  type: ACTIVE_CHAT,
+  ...chatData
+});
+export const activeFriend = friendData => ({
+  type: ACTIVE_FRIEND,
+  ...friendData
 });

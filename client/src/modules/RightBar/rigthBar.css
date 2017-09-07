@@ -1,16 +1,22 @@
 /*rightBar css*/
 .right-bar {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+  position: relative;
   width: 100%;
   margin-left: 80px;
   margin-right: 30px;
-  border-top-left-radius:2px;
+}
+
+.chat-info {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 2px;
   border-top-right-radius: 2px;
   background-color: #fff;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.4);
-
+  display: none;
 }
 
 .user-title {
@@ -25,4 +31,43 @@
 .user-send {
   flex: 0 1 25%;
   border-top: 1px solid #cccccc;
+}
+
+.friends-info {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 25%;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #757575;
+}
+
+.friends-info .name {
+  font-size: 26px;
+  margin-bottom: 20px;
+  text-shadow: 2px 1px 1px #c1c1c1;
+}
+
+.friends-info .master {
+  margin: 5px 0;
+}
+
+.friends-info .tip {
+  margin-right: 10px;
+  color: #e8e8e8;
+  font-size: 10px;
+  background-color: #757575;
+  padding: 3px 6px;
+  border-radius: 2px;
+}
+
+.friends-info .buttons {
+  margin-top: 35px;
+}
+
+.friends-info .button {
+  width: 60px;
+  height: 60px;
+  font-size: 16px;
 }
