@@ -1,9 +1,42 @@
 /*TopBar css*/
-.left-bar{
-  min-width:340px;
-  border-top-left-radius:2px;
+.left-bar {
+  min-width: 340px;
+  border-top-left-radius: 2px;
   border-top-right-radius: 2px;
   background-color: #fff;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.4);
   overflow: hidden;
+}
+
+.chat-list {
+  padding: 4px 0;
+}
+
+.chat-list .chat {
+  padding: 8px 13px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #808080;
+  cursor: pointer;
+}
+
+.chat-list .name {
+  color: #000;
+}
+
+.chat-list .chat:hover {
+  background-color: #f1f1f1;
+}
+
+.chat-list .chat:hover .icon .fa {
+  color: #000000;
+}
+
+.chat-list .chat.active .icon .fa {
+  color: rgb(68, 155, 117);
+}
+
+.chat-list .icon .fa {
+  align-items: center;
+  font-size: 16px;
 }

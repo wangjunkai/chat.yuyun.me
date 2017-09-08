@@ -4,10 +4,10 @@
  */
 import {
   CREATE_MESSAGE, CLEAR_MESSAGE, initState,
-} from '../actions/status'
+} from '../actions/message'
 
 
-export default function status(preState = initState, action) {
+export default function message(preState = initState, action) {
   switch (action.type) {
     case CREATE_MESSAGE:
       return Object.assign({}, preState, {type: CREATE_MESSAGE, show: true, ...action});

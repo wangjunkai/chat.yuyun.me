@@ -4,8 +4,6 @@
 import React, {Component} from 'react'
 import {render}  from 'react-dom'
 import classNames from 'classnames'
-
-
 import './topBar.css'
 
 
@@ -73,6 +71,9 @@ export default class TopBar extends Component {
 
   render() {
     const auth = this.props.auth;
+    if(!auth.isLogin){
+      return null
+    }
     return (
       <section className="top-bar auth-bg fc-fx">
         <div className="fc-nu site-name">
