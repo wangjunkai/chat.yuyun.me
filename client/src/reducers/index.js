@@ -5,13 +5,13 @@
 import {combineReducers} from 'redux'
 import auth from './auth'
 import modal from './modal'
-import status from './status'
-import activeWindow from './activeWindow'
+import message from './message'
+import content from './content'
 
 const initState = {};
 export default combineReducers({
-  status,
+  message,
   modal,
   auth,
-  activeWindow
+  content
 })

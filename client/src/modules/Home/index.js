@@ -10,15 +10,18 @@ import TopBar from '../TopBar'
 import LeftBar from '../LeftBar'
 import RightBar from '../RightBar'
 import ToolBar from '../ToolBar'
-import * as AuthActions from '../../actions/auth'
-import * as StatusActions from '../../actions/status'
+import * as constant from '../../actions'
+import * as ajaxActions from '../../actions/ajax'
+import * as authActions from '../../actions/auth'
+import * as modalActions from '../../actions/modal'
+import * as messageActions from '../../actions/message'
 //app模板
 class AuthTmp extends Component {
 
   //表单状态
   state = {
     formNo: false,//是否通过验证
-    formType: AuthActions.TOURISTS,
+    formType: authActions.TOURISTS,
     formBody: {
       name: '',
       mail: '',
@@ -28,19 +31,30 @@ class AuthTmp extends Component {
 
 //登陆注册
   handleClick = () => {
-    const that = this;
-    const auth = _.assign({}, that.props.auth, {body: this.state.formBody});
-    if (!that.refs.name.value.trim()) {
+    const {state, refs, props} = this;
+    const {auth, actions} = props;
+    const newAuth = _.assign({}, auth, {body: state.formBody});
+    if (!refs.name.value.trim()) {
       const ti = setTimeout(() => {
-        that.setState({formNo: false})
+        this.setState({formNo: false})
       }, 3000);
-      if (that.state.formNo) {
+      if (state.formNo) {
         clearTimeout(ti);
       }
-      that.setState({formNo: true});
+      this.setState({formNo: true});
     } else {
-      that.props.actions.createMessage({message: '请等待...', class: StatusActions.NEWS_LOAD});
-      that.props.actions[this.state.formType](auth)
+
+      const param = {
+        ...newAuth,
+        next: actions[state.formType],
+        beforeAction: () => {
+          actions.createMessage({message: '请等待...', class: constant.NEWS_LOAD});
+        },
+        afterAction: () => {
+
+        }
+      };
+      actions.createAjax(param)
     }
   };
 //表单处理
@@ -65,14 +79,14 @@ class AuthTmp extends Component {
     const {actions, auth} = nextProps;
     if (auth.isLogin && !auth.isAutoLogin && auth.isLogin != this.props.auth.isLogin) {
       if (auth.isLogin && !auth.isAutoLogin) {
-        actions.createMessage({message: '登入成功', delay: 2000, class: StatusActions.NEWS_OK});
+        actions.createMessage({message: '登入成功', delay: 2000, class: constant.NEWS_OK});
         return false;
       }
     }
   };
 
   render() {
-    const {actions, auth} = this.props;
+    const {auth} = this.props;
     if (auth.isLogin) {
       return null;
     }
@@ -82,7 +96,7 @@ class AuthTmp extends Component {
     });
     let AuthForm;
     switch (this.state.formType) {
-      case AuthActions.TOURISTS:
+      case authActions.TOURISTS:
         AuthForm = (
           <div className={touristsClass}>
             <div className="form_group">
@@ -96,7 +110,7 @@ class AuthTmp extends Component {
           </div>
         );
         break;
-      case AuthActions.LOGIN:
+      case authActions.LOGIN:
         AuthForm = (
           <div className={touristsClass}>
             <div className="form_group">
@@ -115,7 +129,7 @@ class AuthTmp extends Component {
           </div>
         );
         break;
-      case AuthActions.REGISTER:
+      case authActions.REGISTER:
         AuthForm = (
           <div className={touristsClass}>
             <div className="form_group">
@@ -148,12 +162,11 @@ class AuthTmp extends Component {
           <p className="auth-subtitle">一个畅聊的地方</p>
           <div className="auth-content">
             {AuthForm}
-            {/*<Tourists actions={actions} auth={auth}/>*/}
           </div>
           <div className="auth-title">
-            以 <span onClick={this.handleFormType.bind(this, AuthActions.TOURISTS)}>游客身份登录</span>，
-            以 <span onClick={this.handleFormType.bind(this, AuthActions.LOGIN)}>账号登陆</span>，
-            还没账号? <span onClick={this.handleFormType.bind(this, AuthActions.REGISTER)}>注册</span></div>
+            以 <span onClick={this.handleFormType.bind(this, authActions.TOURISTS)}>游客身份登录</span>，
+            以 <span onClick={this.handleFormType.bind(this, authActions.LOGIN)}>账号登陆</span>，
+            还没账号? <span onClick={this.handleFormType.bind(this, authActions.REGISTER)}>注册</span></div>
         </div>
       </div>
     )
@@ -164,24 +177,24 @@ class AuthTmp extends Component {
 class Loading extends Component {
   componentDidUpdate() {
     const prop = this.props;
-    if (prop.status.show && prop.status.delay) {
+    if (prop.message.show && prop.message.delay) {
       setTimeout(() => {
         prop.actions.clearMessage();
-      }, prop.status.delay)
+      }, prop.message.delay)
     }
   }
 
-  initClass() {
-    const status = this.props.status;
+  initClass = () => {
+    const message = this.props.message;
     let c = {'fa': true};
-    switch (status.class) {
-      case StatusActions.NEWS_LOAD:
+    switch (message.class) {
+      case constant.NEWS_LOAD:
         _.assign(c, {'fa-spinner': true, 'fa-spin': true});
         break;
-      case StatusActions.NEWS_OK:
+      case constant.NEWS_OK:
         _.assign(c, {'fa-check': true});
         break;
-      case StatusActions.NEWS_ERROR:
+      case constant.NEWS_ERROR:
         _.assign(c, {'fa-times': true});
         break;
     }
@@ -189,17 +202,17 @@ class Loading extends Component {
   }
 
   render() {
-    const status = this.props.status;
+    const message = this.props.message;
     const popClass = classNames({
       'popup-container popup-bg': true,
-      none: !status.show
+      none: !message.show
     });
     const newsTypeClass = classNames(this.initClass());
     return (
       <div className={popClass}>
         <div className="popup">
           <i className={newsTypeClass}></i>
-          <span style={{marginLeft: '5px'}}>{status.message}</span>
+          <span style={{marginLeft: '5px'}}>{message.message}</span>
         </div>
       </div>
     )
@@ -260,7 +273,7 @@ class Modal extends Component {
 }
 
 //APP
-const App = ({actions, auth, modal, status}) => (
+const App = ({actions, auth, modal, message}) => (
   <div className="app">
     <div className="container">
       <TopBar actions={actions} auth={auth}/>
@@ -271,20 +284,20 @@ const App = ({actions, auth, modal, status}) => (
       </div>
     </div>
     <AuthTmp actions={actions} auth={auth}/>
-    <Loading actions={actions} status={status}/>
+    <Loading actions={actions} message={message}/>
     <Modal modal={modal}/>
 
   </div>
 );
-const mapStateToProps = function (state, ownProps) {
+const mapStateToProps = function (state) {
   return {
     auth: state.auth,
     modal: state.modal,
-    status: state.status,
+    message: state.message,
   }
 };
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(_.assign({}, AuthActions, StatusActions), dispatch)
+  actions: bindActionCreators(_.assign({}, ajaxActions, authActions, modalActions, messageActions), dispatch)
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);

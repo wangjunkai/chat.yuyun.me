@@ -4,7 +4,7 @@
  */
 import {
   CREATE_MODAL, CLEAR_MODAL, initModalData,
-} from '../actions/status'
+} from '../actions/modal'
 
 export default function modal(preState = initModalData, action) {
   switch (action.type) {
