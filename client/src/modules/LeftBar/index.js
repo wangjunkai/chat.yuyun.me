@@ -2,51 +2,53 @@
  * Created by wangjunkai on 2017/8/10.
  */
 import React, {Component} from 'react'
+import _ from 'lodash'
 import './leftBar.css'
 import {connect} from 'react-redux'
 import classNames from 'classnames'
-import _ from 'lodash'
 import {NEWS_LOAD} from '../../actions'
-import {API, createAjax} from '../../actions/ajax'
+import {createAjax} from '../../actions/ajax'
 import {createMessage, clearMessage} from '../../actions/message'
-import {activeContent} from '../../actions/content'
+import {activeContent,activeChat} from '../../actions/content'
 
 class LeftBar extends Component {
 
   setActiveChat = (e, chat) => {
     const pro = this.props;
-    const chatCache = pro.contentWindow.activeChat;
-    const matchCache = !_.has(chatCache, chat.id);
+    const {chatList} = pro.content;
+    const matchCache = _.findIndex(chatList,(c)=>{
+      if(c.id==chat.id){
+        return c['comments']
+      }
+    });
     const param = {
+      url: '/comments/' + chat.id,
       beforeAction: () => {
         pro.createMessage({message: '请等待...', class: NEWS_LOAD})
       },
-      afterAction: (res) => {
+      afterAction: () => {
         pro.clearMessage();
-        const o = _.assign({}, chatCache, {[chat.id]: chat});
       },
-      activeChatId: chat.id,
-      [API]: matchCache
+      nextAction: pro.activeChat,
+      activeChat: chat.id
     };
-    pro.activeWindow(param);
-
+    if (matchCache>=0) {
+      pro.activeChat({activeChat: chat.id})
+    } else {
+      pro.createAjax(param);
+    }
   };
 
   render() {
     let content = this.props.content;
-    const list = [
-      {id: '1', time: '10:22', name: 'wjk', message: '历史课角度来看时间到了分解落实'},
-      {id: '2', time: '10:22', name: 'sdfsdsf', message: '历史课角度来看时间到了分解落实'},
-      {id: '3', time: '10:22', name: 'sdfxc', message: '历史课角度来看时间到了分解落实'}
-    ];
     return (
       <section className="left-bar">
         <div className="chat-list">
           {
-            list.map((chat) => {
+            content[content.contentType].map((chat) => {
               const chatClass = classNames({
                 'chat': true,
-                'active': content.activeChatId === chat.id
+                'active': content.activeChat === chat.id
               });
               return (
                 <div className={chatClass} key={chat.id} onClick={(e) => this.setActiveChat(e, chat)}>
@@ -65,6 +67,7 @@ class LeftBar extends Component {
     )
   }
 }
+
 const mapStateToProps = function (state) {
   return {
     content: state.content,
@@ -74,6 +77,7 @@ const mapStateToProps = function (state) {
 export default connect(mapStateToProps, {
   createAjax,
   activeContent,
+  activeChat,
   createMessage,
   clearMessage
 })(LeftBar);

@@ -20,8 +20,11 @@ export default function auth(preState = initUser, action) {
       break;
     case TOURISTS:
     case LOGIN:
-      sessionStorage.setItem(STORAGE_ID, JSON.stringify(action));
-      return _.assign({}, preState, {...action, isLogin: true});
+      const newState = _.assign({}, preState, {isLogin: true});
+      newState.info = action.body;
+      newState.type = action.type;
+      sessionStorage.setItem(STORAGE_ID, JSON.stringify(newState));
+      return newState;
       break;
     case LOGOUT:
       sessionStorage.removeItem(STORAGE_ID);

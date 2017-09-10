@@ -15,6 +15,7 @@ import * as ajaxActions from '../../actions/ajax'
 import * as authActions from '../../actions/auth'
 import * as modalActions from '../../actions/modal'
 import * as messageActions from '../../actions/message'
+
 //app模板
 class AuthTmp extends Component {
 
@@ -32,8 +33,7 @@ class AuthTmp extends Component {
 //登陆注册
   handleClick = () => {
     const {state, refs, props} = this;
-    const {auth, actions} = props;
-    const newAuth = _.assign({}, auth, {body: state.formBody});
+    const {actions} = props;
     if (!refs.name.value.trim()) {
       const ti = setTimeout(() => {
         this.setState({formNo: false})
@@ -43,18 +43,16 @@ class AuthTmp extends Component {
       }
       this.setState({formNo: true});
     } else {
-
-      const param = {
-        ...newAuth,
-        next: actions[state.formType],
+      actions.createAjax({
+        url:'',
+        body:state.formBody,
+        nextAction: actions[state.formType],
         beforeAction: () => {
           actions.createMessage({message: '请等待...', class: constant.NEWS_LOAD});
         },
         afterAction: () => {
-
         }
-      };
-      actions.createAjax(param)
+      })
     }
   };
 //表单处理

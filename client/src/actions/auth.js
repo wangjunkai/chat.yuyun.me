@@ -13,20 +13,27 @@ export const REGISTER = 'register';
 
 
 export const initUser = {
+  type: '',
   isLogin: false,
-  isAutoLogin: false
+  isAutoLogin: false,
+  info: {
+    name: '',
+    email: '',
+    password: ''
+  }
 };
 export const initAuth = login => ({type: INITAUTH});
-export const tourists = (data) => {
-  const REQUEST = _.assign({}, initUser, data.REQUEST);
-  data.REQUEST = REQUEST;
-  data.type = TOURISTS;
-  return data;
+export const tourists = (param) => {
+  return {
+    type: TOURISTS,
+    ...param
+  };
 };
-export const login = (data) => {
-  const user = _.assign({}, initUser, data);
-  user.type = LOGIN;
-  return user;
+export const login = (param) => {
+  return {
+    type: LOGIN,
+    ...param
+  };
 };
 export const logout = () => ({
   type: LOGOUT

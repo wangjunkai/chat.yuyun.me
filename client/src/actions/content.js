@@ -3,9 +3,9 @@
  */
 
 //窗口切换状态
-export const ACTIVE_WINDOW = 'ACTIVE_WINDOW';
-export const CHAT = 'CHAT';
-export const FRIENDS = 'FRIENDS';
+export const ACTIVE_CONTENT = 'ACTIVE_CONTENT';
+export const CHAT = 'chatList';
+export const FRIENDS = 'friendList';
 export const ACTIVE_CHAT = 'ACTIVE_CHAT';
 export const ACTIVE_FRIEND = 'ACTIVE_FRIEND';
 
@@ -13,23 +13,25 @@ export const ACTIVE_FRIEND = 'ACTIVE_FRIEND';
 export const initContentData = {
   type: '',
   contentType: CHAT,
-  chatList: [],
-  friendList: [],
-  activeChat: {},
-  activeFriend: {},
+  [CHAT]: {},
+  [FRIENDS]: {},
+  activeChat: '',
+  activeFriend: '',
 };
 
 
 //活动窗口
-export const activeContent = contentData => {
-  const w = Object.assign({}, initContentData, contentData);
-  w.type = ACTIVE_WINDOW;
-  return w;
+export const activeContent = param => {
+  return {
+    type: ACTIVE_CONTENT,
+    ...param
+  };
 };
-export const activeChat = chatData => {
-  const w = Object.assign({}, initContentData, chatData);
-  w.type = ACTIVE_CHAT;
-  return w;
+export const activeChat = param => {
+  return {
+    type: ACTIVE_CHAT,
+    ...param
+  };
 };
 export const activeFriend = friendData => {
   const w = Object.assign({}, initContentData, friendData);

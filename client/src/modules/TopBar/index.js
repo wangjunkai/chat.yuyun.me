@@ -29,17 +29,17 @@ export default class TopBar extends Component {
           <div className="fc-fx fc-lr">
             <div className="form-input">
               <div>账号</div>
-              <input type="text" value={auth.body.name}/>
+              <input type="text" value={auth.info.name}/>
             </div>
             <div className="form-input">
               <div>密码</div>
-              <input type="text" value={auth.body.password}/>
+              <input type="text" value={auth.info.password}/>
             </div>
           </div>
           <div className="fc-at">
             <div className="form-input">
               <div>邮箱</div>
-              <input type="text" value={auth.body.mail}/>
+              <input type="text" value={auth.info.mail}/>
             </div>
           </div>
         </div>
@@ -78,7 +78,7 @@ export default class TopBar extends Component {
       <section className="top-bar auth-bg fc-fx">
         <div className="fc-nu site-name">
           <div className="logo">Free Chat</div>
-          <div className="name">{auth.body.name}</div>
+          <div className="name">{auth.info.name}</div>
         </div>
         <div className="fc-at fc-ct search-input">
           <div className="search">
