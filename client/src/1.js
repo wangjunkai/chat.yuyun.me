@@ -18,7 +18,7 @@ $(function () {
 
   $(window).keydown(function (event) {
     if (event.which === 13) {
-      socket.send($input.val())
+      socket.send('..')
     }
   });
 });

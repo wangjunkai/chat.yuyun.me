@@ -19,7 +19,7 @@ const publicUrl = '';
 module.exports = {
   devtool: 'cheap-module-source-map',
   entry:[
-    require.resolve('react-dev-utils/webpackHotDevClient'),
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
     require.resolve('react-error-overlay'),
     require.resolve('whatwg-fetch'),
     paths.appIndexJs

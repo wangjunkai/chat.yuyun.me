@@ -32,6 +32,10 @@
   color: #000000;
 }
 
+.chat-list .chat.active {
+  background-color: #f1f1f1;
+}
+
 .chat-list .chat.active .icon .fa {
   color: rgb(68, 155, 117);
 }

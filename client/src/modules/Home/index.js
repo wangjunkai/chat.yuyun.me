@@ -44,8 +44,8 @@ class AuthTmp extends Component {
       this.setState({formNo: true});
     } else {
       actions.createAjax({
-        url:'',
-        body:state.formBody,
+        url: '',
+        body: state.formBody,
         nextAction: actions[state.formType],
         beforeAction: () => {
           actions.createMessage({message: '请等待...', class: constant.NEWS_LOAD});
@@ -271,22 +271,26 @@ class Modal extends Component {
 }
 
 //APP
-const App = ({actions, auth, modal, message}) => (
-  <div className="app">
-    <div className="container">
-      <TopBar actions={actions} auth={auth}/>
-      <div className="content-container">
-        <ToolBar/>
-        <LeftBar/>
-        <RightBar/>
+class App extends Component {
+  render() {
+    const {actions, auth, modal, message} = this.props;
+    return (
+      <div className="app">
+        <div className="container">
+          <TopBar actions={actions} auth={auth}/>
+          <div className="content-container">
+            <ToolBar/>
+            <LeftBar/>
+            <RightBar/>
+          </div>
+        </div>
+        <AuthTmp actions={actions} auth={auth}/>
+        <Loading actions={actions} message={message}/>
+        <Modal modal={modal}/>
       </div>
-    </div>
-    <AuthTmp actions={actions} auth={auth}/>
-    <Loading actions={actions} message={message}/>
-    <Modal modal={modal}/>
-
-  </div>
-);
+    );
+  }
+}
 const mapStateToProps = function (state) {
   return {
     auth: state.auth,

@@ -12,9 +12,9 @@ export default function content(preState = initContentData, action) {
     case ACTIVE_CONTENT:
       if (action.contentType === CHAT) {
         const list = [
-          {id: '1', time: '10:22', name: 'wjk', message: '历史课角度来看时间到了分解落实'},
-          {id: '2', time: '10:22', name: 'sdfsdsf', message: '历史课角度来看时间到了分解落实'},
-          {id: '3', time: '10:22', name: 'sdfxc', message: '历史课角度来看时间到了分解落实'},
+          {id: '1', time: '10:22', name: 'wjk', message: '123'},
+          {id: '2', time: '10:22', name: 'sdfsdsf', message: '121212'},
+          {id: '3', time: '10:22', name: 'sdfxc', message: 'aaa'},
         ]
         action.chatList = list;
         action.friendList = preState.friendList
@@ -32,7 +32,7 @@ export default function content(preState = initContentData, action) {
         friendList: action.friendList,
         contentType:action.contentType
       });
-      return newState
+      return newState;
       break;
     case ACTIVE_CHAT:
       preState[CHAT].map((c) => {
