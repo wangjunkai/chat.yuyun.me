@@ -8,7 +8,6 @@ import modal from './modal'
 import message from './message'
 import content from './content'
 
-const initState = {};
 export default combineReducers({
   message,
   modal,

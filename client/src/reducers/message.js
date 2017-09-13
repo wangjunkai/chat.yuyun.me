@@ -11,10 +11,8 @@ export default function message(preState = initState, action) {
   switch (action.type) {
     case CREATE_MESSAGE:
       return Object.assign({}, preState, {type: CREATE_MESSAGE, show: true, ...action});
-      break;
     case CLEAR_MESSAGE:
       return Object.assign({}, preState, {type: CLEAR_MESSAGE, show: false, ...action});
-      break;
     default:
       return preState
   }

@@ -6,6 +6,8 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import classNames from 'classnames'
 import _ from 'lodash'
+
+
 import TopBar from '../TopBar'
 import LeftBar from '../LeftBar'
 import RightBar from '../RightBar'
@@ -57,7 +59,7 @@ class AuthTmp extends Component {
   };
 //表单处理
   handleChange = (e) => {
-    this.state.formBody[e.target.name] = e.target.value;
+    this.setState({formBody: {[this.state.formBody[e.target.name]]: e.target.value}});
   };
 //设置表单类型
   handleFormType = (type) => {
@@ -75,7 +77,7 @@ class AuthTmp extends Component {
   };
   componentWillReceiveProps = (nextProps) => {
     const {actions, auth} = nextProps;
-    if (auth.isLogin && !auth.isAutoLogin && auth.isLogin != this.props.auth.isLogin) {
+    if (auth.isLogin && !auth.isAutoLogin && auth.isLogin !== this.props.auth.isLogin) {
       if (auth.isLogin && !auth.isAutoLogin) {
         actions.createMessage({message: '登入成功', delay: 2000, class: constant.NEWS_OK});
         return false;
@@ -151,6 +153,8 @@ class AuthTmp extends Component {
           </div>
         );
         break;
+      default:
+        break;
     }
     return (
       <div className="popup-container auth-bg">
@@ -195,9 +199,11 @@ class Loading extends Component {
       case constant.NEWS_ERROR:
         _.assign(c, {'fa-times': true});
         break;
+      default:
+        break;
     }
     return c;
-  }
+  };
 
   render() {
     const message = this.props.message;
@@ -302,4 +308,8 @@ const mapStateToProps = function (state) {
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(_.assign({}, ajaxActions, authActions, modalActions, messageActions), dispatch)
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+
+

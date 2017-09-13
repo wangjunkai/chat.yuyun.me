@@ -9,17 +9,12 @@ process.env.NODE_ENV = 'development';
 const http = require('http');
 const express = require('express');
 const app = express();
-const fs = require('fs');
-const chalk = require('chalk');
 const webpack = require('webpack');
-const webpackDevServer = require('webpack-dev-server');
-const clearConsole = require('react-dev-utils/clearConsole');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const openBrowser = require('react-dev-utils/openBrowser');
 const {
   choosePort,
   createCompiler,
-  prepareProxy,
   prepareUrls,
 } = require('react-dev-utils/WebpackDevServerUtils');
 
@@ -30,9 +25,8 @@ const config = require('./config/webpack.config.dev');
 const devServerConfig = require('./config/webpackDevServer.config');
 const {port, host} = require('./config/express.server');
 //socketServer
-const socketServer = require('../server/socket');
+//const socketServer = require('../server/socket');
 
-// Warn and crash if required files are missing
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
   process.exit(1);
 }
@@ -49,27 +43,20 @@ choosePort(host, port)
     const compiler = createCompiler(webpack, config, appName, urls, false);
     //配置中间服务器
     const serverConfig = devServerConfig(urls.lanUrlForConfig);
-    const devServer = new webpackDevServer(compiler, serverConfig);
     //链接socket
     app.use(require("webpack-dev-middleware")(compiler, serverConfig));
-
-    // Step 3: Attach the hot middleware to the compiler & the server
     app.use(require("webpack-hot-middleware")(compiler, {
-      log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
+      log: console.log
     }));
-    app.use(express.static(__dirname + '/client/public'));
     const server = http.createServer(app);
-    //socketServer(server);
-    //监听服务器端口
     server.listen(port, host, function () {
       console.log('Server listening at port %d', port);
-      //打开浏览器
       openBrowser(urls.localUrlForBrowser);
     });
 
     ['SIGINT', 'SIGTERM'].forEach(function (sig) {
       process.on(sig, function () {
-        devServer.close();
+        server.close();
         process.exit();
       });
     });

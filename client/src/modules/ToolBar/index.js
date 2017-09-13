@@ -43,6 +43,8 @@ class ToolBar extends Component {
       case FRIENDS:
         Object.assign(user, {active: true});
         break;
+      default:
+        break;
     }
     return (
       <section className="tool-bar">

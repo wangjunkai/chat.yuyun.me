@@ -8,7 +8,7 @@ import UserTitle from './UserTitle'
 import './rigthBar.css'
 import {connect} from 'react-redux'
 import classNames from 'classnames'
-import {activeContent,CHAT,FRIENDS} from '../../actions/content'
+import {activeContent, CHAT, FRIENDS} from '../../actions/content'
 
 class RightBar extends Component {
   setActiveWindow = (action) => {
@@ -25,6 +25,8 @@ class RightBar extends Component {
         break;
       case FRIENDS:
         Object.assign(friends, {none: false});
+        break;
+      default:
         break;
     }
     return (

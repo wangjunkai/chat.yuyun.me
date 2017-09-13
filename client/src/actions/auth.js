@@ -2,9 +2,6 @@
  * Created by wangjunkai on 2017/7/14.
  */
 
-import {API} from './ajax'
-import _ from 'lodash'
-
 export const INITAUTH = 'initAuth';
 export const TOURISTS = 'tourists';//游客登陆
 export const LOGIN = 'login';

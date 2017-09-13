@@ -2,7 +2,6 @@
  * Created by wangjunkai on 2017/7/14.
  */
 
-import {API} from '../actions/ajax'
 import {createMessage} from '../actions/message'
 import _ from 'lodash'
 
@@ -24,9 +23,9 @@ export default store => next => param => {
       //return Promise.reject({message: res.statusText, delay: 2000, class: status.NEWS_ERROR})
       //}
 
-      res.json().then(function (json) {
+/*      res.json().then(function (json) {
         return _.assign({}, param, {response: json});
-      })
+      })*/
     })
     .then(
       res => {

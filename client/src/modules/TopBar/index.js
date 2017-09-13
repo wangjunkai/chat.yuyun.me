@@ -2,7 +2,6 @@
  * Created by wangjunkai on 2017/8/10.
  */
 import React, {Component} from 'react'
-import {render}  from 'react-dom'
 import classNames from 'classnames'
 import './topBar.css'
 

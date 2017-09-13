@@ -17,7 +17,7 @@ class LeftBar extends Component {
     const pro = this.props;
     const {chatList} = pro.content;
     const matchCache = _.findIndex(chatList,(c)=>{
-      if(c.id==chat.id){
+      if(c.id===chat.id){
         return c['comments']
       }
     });

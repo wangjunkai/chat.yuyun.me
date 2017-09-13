@@ -1,11 +1,8 @@
 'use strict';
 
 const autoprefixer = require('autoprefixer');
-const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 
@@ -13,33 +10,32 @@ const paths = require('./paths');
 
 //应用根目录
 const publicPath = '/';
-//InterpolateHtmlPlugin 插件的公共目录
-const publicUrl = '';
 
 module.exports = {
   devtool: 'cheap-module-source-map',
-  entry:[
-    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+  entry: [
+    require.resolve('react-hot-loader/patch'),
     require.resolve('react-error-overlay'),
     require.resolve('whatwg-fetch'),
-    paths.appIndexJs
+    paths.appIndexJs,
+    'webpack-hot-middleware/client?reload=false',
   ],
-  output:{
+  output: {
     path: paths.appBuild,
     pathinfo: true,
     filename: 'static/js/bundle.js',
     chunkFilename: 'static/js/[name].chunk.js',
     publicPath: publicPath,
   },
-  resolve:{
+  resolve: {
     extensions: ['.js', '.json', '.jsx'],
     plugins: [
       new ModuleScopePlugin(paths.appSrc),
     ],
   },
-  module:{
+  module: {
     strictExportPresence: true,
-    rules:[
+    rules: [
       //检查代码格式
       {
         test: /\.(js|jsx)$/,
@@ -85,10 +81,16 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         include: paths.appSrc,
-        loader: require.resolve('babel-loader'),
-        options: {
-          cacheDirectory: true,
-        }
+        use:[
+          require.resolve('react-hot-loader/webpack'),
+          {
+            loader: require.resolve('babel-loader'),
+            options: {
+              cacheDirectory: true
+            }
+          }
+        ],
+        //loaders: ['react-hot-loader/webpack', require.resolve('babel-loader')],
       },
       {
         test: /\.css$/,
@@ -122,7 +124,7 @@ module.exports = {
       }
     ]
   },
-  plugins:[
+  plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       inject: true,
