@@ -5,13 +5,12 @@
 const socketServer = require('socket.io');
 
 module.exports = function (server) {
-  const app = require('http').createServer(server.middleware);
-  const io = new socketServer(app);
+  const io = new socketServer(server);
   const chat = io.of('/chat');
 
-  io.on('connection', function (socket) {
-
-  })
+  chat.on('connection', function (socket) {
+    socket.emit('news', { hello: 'world' });
+  });
 
   return server;
 };

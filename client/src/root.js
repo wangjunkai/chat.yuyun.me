@@ -6,7 +6,11 @@ import api from './middlewares/api'
 import AppReducers from './reducers'
 import App from './modules/Home'
 import {AppContainer} from 'react-hot-loader'
+import socket from 'socket.io-client'
+
 const store = createStore(AppReducers, applyMiddleware(thunk, api));
+const chatIo = socket('/chat');
+
 
 export default class Root extends Component {
   render() {

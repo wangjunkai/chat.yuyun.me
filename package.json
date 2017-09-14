@@ -46,6 +46,7 @@
     "webpack": "^3.5.6",
     "webpack-dev-middleware": "^1.11.0",
     "webpack-dev-server": "2.4.5",
+    "webpack-hot-middleware": "^2.19.1",
     "webpack-manifest-plugin": "1.1.0",
     "whatwg-fetch": "^2.0.3"
   },
@@ -53,6 +54,7 @@
     "classnames": "^2.2.5",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.4",
+    "mongoose": "^4.11.11",
     "normalize.css": "^7.0.0",
     "prop-types": "^15.5.10",
     "react": "^15.5.0",
@@ -60,8 +62,7 @@
     "react-redux": "^5.0.5",
     "redux": "^3.5.2",
     "redux-thunk": "^2.2.0",
-    "socket.io": "^2.0.3",
-    "webpack-hot-middleware": "^2.19.1"
+    "socket.io": "^2.0.3"
   },
   "scripts": {
     "start": "node tools/start.js",

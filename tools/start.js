@@ -25,7 +25,8 @@ const config = require('./config/webpack.config.dev');
 const devServerConfig = require('./config/webpackDevServer.config');
 const {port, host} = require('./config/express.server');
 //socketServer
-//const socketServer = require('../server/socket');
+const socketServer = require('../server/socket.config');
+const mongoServer = require('../server/mongo.config');
 
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
   process.exit(1);
@@ -43,12 +44,13 @@ choosePort(host, port)
     const compiler = createCompiler(webpack, config, appName, urls, false);
     //配置中间服务器
     const serverConfig = devServerConfig(urls.lanUrlForConfig);
-    //链接socket
     app.use(require("webpack-dev-middleware")(compiler, serverConfig));
     app.use(require("webpack-hot-middleware")(compiler, {
       log: console.log
     }));
     const server = http.createServer(app);
+    //链接socket
+    socketServer(server);
     server.listen(port, host, function () {
       console.log('Server listening at port %d', port);
       openBrowser(urls.localUrlForBrowser);

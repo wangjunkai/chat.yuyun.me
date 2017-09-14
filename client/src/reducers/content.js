@@ -12,9 +12,9 @@ export default function content(preState = initContentData, action) {
     case ACTIVE_CONTENT:
       if (action.contentType === CHAT) {
         const list = [
-          {id: '1', time: '10:22', name: 'wjk', message: 'asdasd'},
+          {id: '1', time: '10:22', name: 'wjk', message: 'fdfg'},
           {id: '2', time: '10:22', name: 'sdfsdsf', message: '121212'},
-          {id: '3', time: '10:22', name: 'sdfxc', message: 'aaa'},
+          {id: '3', time: '10:22', name: 'sdfxc', message: 'asaaaa'},
         ]
         action.chatList = list;
         action.friendList = preState.friendList
