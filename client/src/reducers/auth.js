@@ -19,9 +19,7 @@ export default function auth(preState = initUser, action) {
       return _.assign({}, preState, returnAction);
     case TOURISTS:
     case LOGIN:
-      const newState = _.assign({}, preState, {isLogin: true});
-      newState.info = action.body;
-      newState.type = action.type;
+      const newState = _.assign({}, preState, {...action}, {isLogin: true});
       sessionStorage.setItem(STORAGE_ID, JSON.stringify(newState));
       return newState;
     case LOGOUT:

@@ -45,21 +45,14 @@ class AuthTmp extends Component {
       }
       this.setState({formNo: true});
     } else {
-      actions.createAjax({
-        url: '',
-        body: state.formBody,
-        nextAction: actions[state.formType],
-        beforeAction: () => {
-          actions.createMessage({message: '请等待...', class: constant.NEWS_LOAD});
-        },
-        afterAction: () => {
-        }
-      })
+      actions.createMessage({message: '请等待...',class: constant.NEWS_LOAD});
+      actions[state.formType](state.formBody);
     }
   };
 //表单处理
   handleChange = (e) => {
-    this.setState({formBody: {[this.state.formBody[e.target.name]]: e.target.value}});
+    const formBody = Object.assign({}, this.state.formBody, {[e.target.name]: e.target.value});
+    this.setState(Object.assign({}, this.state, {formBody}));
   };
 //设置表单类型
   handleFormType = (type) => {
