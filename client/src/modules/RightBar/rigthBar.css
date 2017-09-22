@@ -16,7 +16,6 @@
   border-top-right-radius: 2px;
   background-color: #fff;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.4);
-  display: none;
 }
 
 .user-title {
@@ -33,27 +32,32 @@
   border-top: 1px solid #cccccc;
 }
 
-.friends-info {
+.friends-info,
+.news-info {
   width: 100%;
-  position: absolute;
   left: 0;
-  top: 25%;
   font-size: 14px;
   line-height: 1.4;
   color: #757575;
 }
 
-.friends-info .name {
+.info-detail {
+  position: absolute;
+  top: 25%;
+  width: 100%;
+}
+
+.info-detail .name {
   font-size: 26px;
   margin-bottom: 20px;
   text-shadow: 2px 1px 1px #c1c1c1;
 }
 
-.friends-info .master {
+.info-detail .master {
   margin: 5px 0;
 }
 
-.friends-info .tip {
+.info-detail .tip {
   margin-right: 10px;
   color: #e8e8e8;
   font-size: 10px;
@@ -62,12 +66,60 @@
   border-radius: 2px;
 }
 
-.friends-info .buttons {
+.info-detail .buttons {
   margin-top: 35px;
 }
 
-.friends-info .button {
+.info-detail .button {
   width: 60px;
   height: 60px;
   font-size: 16px;
+}
+
+.news-info .search {
+  width: 65%;
+  position: absolute;
+  font-size: 14px;
+  top: 10%;
+}
+
+.news-info .search input {
+  height: 40px;
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 1px 2px 5px 0 #c1c1c1;
+  padding-left: 5em;
+}
+
+.news-info .search .fa {
+  position: absolute;
+  line-height: 40px;
+  right: -50px;
+  width: 40px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #d4d4d4;
+  color: #5d5d5d;
+  cursor: pointer;
+  box-shadow: 1px 1px 5px 0 #484848;
+  transition: all .5s ease;
+}
+
+.news-info .search .fa:hover {
+  background-color: #b3b3b3;
+  color: #ffffff;
+  transition: all .5s ease;
+}
+
+.news-info .select {
+  position: absolute;
+  height: 40px;
+  line-height: 40px;
+  left: 10px;
+  font-size: 14px;
+}
+
+.news-info select {
+  outline: none;
+  border: 0;
 }

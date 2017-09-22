@@ -18,6 +18,7 @@ import * as authActions from '../../actions/auth'
 import * as modalActions from '../../actions/modal'
 import * as messageActions from '../../actions/message'
 
+const session = JSON.parse(sessionStorage.getItem(constant.STORAGE_ID));
 //app模板
 class AuthTmp extends Component {
 
@@ -45,7 +46,7 @@ class AuthTmp extends Component {
       }
       this.setState({formNo: true});
     } else {
-      actions.createMessage({message: '请等待...',class: constant.NEWS_LOAD});
+      actions.createMessage({message: '请等待...', class: constant.NEWS_LOAD});
       actions[state.formType](state.formBody);
     }
   };
@@ -66,7 +67,7 @@ class AuthTmp extends Component {
   };
   componentWillMount = () => {
     const {actions} = this.props;
-    actions.initAuth()
+    actions.initAuth(session)
   };
   componentWillReceiveProps = (nextProps) => {
     const {actions, auth} = nextProps;
@@ -80,7 +81,7 @@ class AuthTmp extends Component {
 
   render() {
     const {auth} = this.props;
-    if (auth.isLogin) {
+    if (session || auth.isLogin) {
       return null;
     }
     const touristsClass = classNames({
@@ -249,20 +250,19 @@ class Modal extends Component {
 
   render() {
     const modal = this.props.modal;
-    const ModalDom = modal.dom.bind(this);
     const containerClass = classNames({
       'popup-container popup-deep-bg': true,
       'none': !this.state.show,
       [this.state.bgClass]: true
     });
     const modalClass = classNames({
-      'modal user-modal fc-fx fc-ud': true,
+      'modal fc-fx fc-ud': true,
       [this.state.class]: true
     });
     return (
       <div className={containerClass}>
         <div className={modalClass}>
-          <ModalDom/>
+          {modal.dom}
         </div>
       </div>
     );

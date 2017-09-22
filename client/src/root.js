@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {createStore, applyMiddleware} from 'redux'
 import {Provider} from 'react-redux'
 import thunk from 'redux-thunk'
-//import api from './middlewares/api'
 import st from './middlewares/socket'
 import AppReducers from './reducers'
 import App from './modules/Home'

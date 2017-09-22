@@ -4,23 +4,21 @@
 const mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
-
 const userSchema = new Schema({
   name: String,
   password: String,
   email: String,
-  type: String,
-  join_date: Date,
-  last_login: Date,
-  is_active: Boolean
+  userType: String,
+  joinDate: Date,
+  lastLogin: Date,
+  isLogin: Boolean,
+  socketId:String
 });
-userSchema.methods.login = function () {
-  this.is_active = true;
-  this.last_login = new Date();
-  return this;
-};
-const User = mongoose.model('User', userSchema);
+
+mongoose.model('users', userSchema);
+
 
 module.exports = {
-  User
+
+  users: mongoose.model('users')
 };

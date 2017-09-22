@@ -2,13 +2,15 @@
  * Created by wangjunkai on 2017/9/15.
  */
 
+import * as msg from '../actions/message'
+import * as news from '../actions/index'
+
 import io from 'socket.io-client';
-const socketPath = '/chat';
+const socketPath = 'http://localhost:12302/chat';
 class socketApi {
   socket;
 
   connect() {
-    debugger
     this.socket = io(socketPath);
     return new Promise((resolve, reject) => {
       this.socket.on('connect', () => resolve());
@@ -31,8 +33,7 @@ class socketApi {
 
       return this.socket.emit(event, data, (response) => {
         if (response.error) {
-          console.error(response.error);
-          return reject(response.error);
+          return reject(response);
         }
 
         return resolve(response);
@@ -53,19 +54,20 @@ const socket = new socketApi();
 socket.connect();
 
 export default store => next => action => {
-
   const {promise} = action;
-
   if (!promise) {
     return next(action);
   }
+  const {sock, after} = promise;
 
-  return promise(socket)
+  return sock(socket)
     .then((result) => {
-      return next({...result, type: action.type});
+      after && after(store.dispatch);
+      next({...result, type: action.type});
     })
     .catch((error) => {
-      debugger
-      //return next({...rest, error, type: FAILURE});
+      setTimeout(() => {
+        store.dispatch(msg.createMessage({message: error.message, class: news.NEWS_ERROR, delay: 2000}));
+      }, 0);
     })
 };

@@ -4,18 +4,18 @@ const http = require('http');
 const express = require('express');
 const app = express();
 
-const {port, host,apiPort} = require('./config/express.server');
+const {host,apiPort} = require('./config/express.server');
 //socketServer
+require('../server/mongo.config')();
 const socketServer = require('../server/socket.config');
-const mongoServer = require('../server/mongo.config');
-
 
 //配置中间服务器
 const server = http.createServer(app);
+
 //链接socket
 socketServer(server);
 server.listen(apiPort, host, function () {
-  console.log('Api Server listening at port %d', port);
+  console.log('Api Server listening at port %d', apiPort);
 });
 
 ['SIGINT', 'SIGTERM'].forEach(function (sig) {

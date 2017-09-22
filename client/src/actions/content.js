@@ -6,6 +6,7 @@
 export const ACTIVE_CONTENT = 'ACTIVE_CONTENT';
 export const CHAT = 'chatList';
 export const FRIENDS = 'friendList';
+export const NEWS = 'newList';
 export const ACTIVE_CHAT = 'ACTIVE_CHAT';
 export const ACTIVE_FRIEND = 'ACTIVE_FRIEND';
 
@@ -13,8 +14,9 @@ export const ACTIVE_FRIEND = 'ACTIVE_FRIEND';
 export const initContentData = {
   type: '',
   contentType: CHAT,
-  [CHAT]: {},
-  [FRIENDS]: {},
+  [CHAT]: [],
+  [FRIENDS]: [],
+  [NEWS]: [],
   activeChat: '',
   activeFriend: '',
 };

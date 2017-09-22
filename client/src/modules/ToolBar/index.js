@@ -8,7 +8,7 @@ import './toolBar.css'
 import {NEWS_LOAD} from '../../actions'
 import {createAjax} from '../../actions/ajax'
 import {createMessage, clearMessage} from '../../actions/message'
-import {activeContent, CHAT, FRIENDS} from '../../actions/content'
+import {activeContent, CHAT, FRIENDS,NEWS} from '../../actions/content'
 
 
 class ToolBar extends Component {
@@ -16,8 +16,9 @@ class ToolBar extends Component {
     this.props.activeContent({contentType: CHAT});
   }
 
-  setActiveWindow = (action) => {
+  setActiveContent = (action) => {
     const pro = this.props;
+    if (action === pro.content.contentType)return;
     const param = {
       url: '/chat',
       beforeAction: () => {
@@ -49,9 +50,14 @@ class ToolBar extends Component {
     return (
       <section className="tool-bar">
         <div className="tool-bar-buttons">
-          <i className={classNames(comment)} onClick={this.setActiveWindow.bind(this, CHAT)}></i>
-          <i className={classNames(user)} onClick={this.setActiveWindow.bind(this, FRIENDS)}></i>
+          <i className={classNames(comment)} onClick={this.setActiveContent.bind(this, CHAT)}></i>
+          <i className={classNames(user)} onClick={this.setActiveContent.bind(this, FRIENDS)}></i>
           <i className="fa fa-bars"></i>
+        </div>
+        <div className="add-user" onClick={this.setActiveContent.bind(this, NEWS)}>
+          <div className="button app-button fc-at fc-ct">
+            <i className="fa fa-plus"></i>
+          </div>
         </div>
       </section>
     )

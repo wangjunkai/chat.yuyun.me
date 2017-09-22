@@ -1,6 +1,7 @@
 /*TopBar css*/
 .tool-bar {
   width: 80px;
+  position: relative;
 }
 
 .tool-bar-buttons {
@@ -52,4 +53,17 @@
 
 .tool-bar-buttons .fa-bars:hover:after {
   content: '其他';
+}
+
+.add-user {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+}
+
+.add-user .button {
+  width: 40px;
+  height: 40px;
+  margin: auto;
+  font-size: 20px;
 }

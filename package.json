@@ -31,7 +31,9 @@
     "file-loader": "0.11.1",
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.28.0",
+    "http-proxy-middleware": "^0.17.4",
     "jest": "20.0.3",
+    "nodemon": "^1.12.1",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.0.0",
     "postcss-loader": "2.0.5",
@@ -51,6 +53,7 @@
     "whatwg-fetch": "^2.0.3"
   },
   "dependencies": {
+    "bluebird": "^3.5.0",
     "classnames": "^2.2.5",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.4",
@@ -65,7 +68,7 @@
     "socket.io": "^2.0.3"
   },
   "scripts": {
-    "start": "node tools/start.js",
+    "start": "node tools/client.start.js",
     "build": "node tools/build.js"
   },
   "babel": {

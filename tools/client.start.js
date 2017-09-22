@@ -10,6 +10,7 @@ const http = require('http');
 const express = require('express');
 const app = express();
 const webpack = require('webpack');
+const proxy = require('http-proxy-middleware');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const openBrowser = require('react-dev-utils/openBrowser');
 const {
@@ -23,10 +24,7 @@ const paths = require('./config/paths');
 const config = require('./config/webpack.config.dev');
 //中间服务器的配置文件
 const devServerConfig = require('./config/webpackDevServer.config');
-const {port, host} = require('./config/express.server');
-//socketServer
-const socketServer = require('../server/socket.config');
-const mongoServer = require('../server/mongo.config');
+const {port, host, apiPort} = require('./config/express.server');
 
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
   process.exit(1);
@@ -48,11 +46,16 @@ choosePort(host, port)
     app.use(require("webpack-hot-middleware")(compiler, {
       log: console.log
     }));
+    const wsProxy = proxy('/chat', {
+      target: 'http://localhost:' + apiPort,
+      changeOrigin: true,
+      ws: true,
+      logLevel: 'debug'
+    });
+    app.use(wsProxy);
     const server = http.createServer(app);
-    //链接socket
-    socketServer(server);
     server.listen(port, host, function () {
-      console.log('Server listening at port %d', port);
+      console.log('Client Server listening at port %d', port);
       openBrowser(urls.localUrlForBrowser);
     });
 

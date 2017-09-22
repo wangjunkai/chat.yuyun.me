@@ -1,8 +1,8 @@
 /**
  * Created by wangjunkai on 2017/7/14.
  */
-import {createMessage} from './message'
-import {NEWS_LOAD} from './index'
+import * as messageAction from './message'
+import * as constant from './index'
 
 export const INITAUTH = 'initAuth';
 export const TOURISTS = 'tourists';//游客登陆
@@ -19,19 +19,38 @@ export const initUser = {
   email: '',
   password: ''
 };
-export const initAuth = login => ({type: INITAUTH});
-export const tourists = (user) => {
-  return {
-    type: TOURISTS,
-    promise: (socket) => socket.emit('login', user)
-  };
+export const initAuth = (user) => {
+  if (!user) {
+    return {type: INITAUTH}
+  } else {
+    return {
+      type: INITAUTH,
+      promise: {
+        sock: (socket) => socket.emit('login', user)
+      }
+    }
+  }
 };
-export const login = (param) => {
-  return {
-    type: LOGIN,
-    ...param
-  };
-};
+
+export const tourists = (user) => ({
+  type: TOURISTS,
+  promise: (socket) => socket.emit('login', user)
+});
+export const login = (user) => ({
+  type: LOGIN,
+  promise: {
+    sock: (socket) => socket.emit('login', user)
+  }
+});
+export const register = (user) => ({
+  type: REGISTER,
+  promise: {
+    sock: (socket) => socket.emit('register', user),
+    after: (dispatch) => {
+      dispatch(messageAction.createMessage({message: '注册成功!', class: constant.NEWS_OK, delay: 2000}))
+    }
+  }
+});
 export const logout = () => ({
   type: LOGOUT
 });

@@ -6,10 +6,16 @@
   background-color: #fff;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.4);
   overflow: hidden;
+  position: relative;
 }
 
 .chat-list {
   padding: 4px 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
 }
 
 .chat-list .chat {
@@ -25,7 +31,7 @@
 }
 
 .chat-list .chat:hover {
-  background-color: #f1f1f1;
+  background-color: #ebebeb;
 }
 
 .chat-list .chat:hover .icon .fa {
@@ -33,7 +39,7 @@
 }
 
 .chat-list .chat.active {
-  background-color: #f1f1f1;
+  background-color: #ebebeb;
 }
 
 .chat-list .chat.active .icon .fa {
@@ -43,4 +49,24 @@
 .chat-list .icon .fa {
   align-items: center;
   font-size: 16px;
+}
+
+.add-user-modal .title{
+  font-size: 14px;
+  margin: 20px 10px;
+}
+.add-user-modal .title .button{
+  padding:10px 30px;
+  cursor: pointer;
+}
+.add-user-modal .bottom{
+  padding: 20px;
+}
+.add-user-modal .close-button{
+  cursor: pointer;
+}
+.left-bar .no-more{
+  text-align: center;
+  font-size: 14px;
+  padding: 30px 0;
 }
