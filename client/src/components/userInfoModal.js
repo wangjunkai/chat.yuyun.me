@@ -9,13 +9,12 @@ export default class userInfoModal extends Component {
   handleCloseModal = () => {
     const action = this.props.actions;
     action.clearModal();
-  }
+  };
 
   handleLogout = () => {
     const action = this.props.actions;
-    action.clearModal();
     action.logout();
-  }
+  };
 
 
   render() {

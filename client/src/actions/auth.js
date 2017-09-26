@@ -2,6 +2,7 @@
  * Created by wangjunkai on 2017/7/14.
  */
 import * as messageAction from './message'
+import * as modalAction from './modal'
 import * as constant from './index'
 
 export const INITAUTH = 'initAuth';
@@ -26,7 +27,7 @@ export const initAuth = (user) => {
     return {
       type: INITAUTH,
       promise: {
-        sock: (socket) => socket.emit('login', user)
+        sock: (socket) => socket.emit('initAuth', user)
       }
     }
   }
@@ -52,5 +53,11 @@ export const register = (user) => ({
   }
 });
 export const logout = () => ({
-  type: LOGOUT
+  type: LOGOUT,
+  promise: {
+    sock: (socket) => socket.emit('logout'),
+    after: (dispatch) => {
+      dispatch(modalAction.clearModal())
+    }
+  }
 });

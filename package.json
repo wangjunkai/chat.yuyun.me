@@ -68,6 +68,7 @@
     "socket.io": "^2.0.3"
   },
   "scripts": {
+    "server": "nodemon --debug tools/server.start.js 5859",
     "start": "node tools/client.start.js",
     "build": "node tools/build.js"
   },
