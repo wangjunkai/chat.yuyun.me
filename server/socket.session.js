@@ -2,13 +2,15 @@
  * Created by wangjunkai on 2017/9/12.
  */
 const mongoose = require('mongoose');
-const {users} = require('./mongo.schema');
+const {
+  users
+} = require('./mongo.schema');
 
-module.exports = function (chat) {
-  const connect = function (callback) {
+module.exports = function(chat) {
+  const connect = function(callback) {
     users.findOne({
       socketId: chat.id,
-    }, function (err, fUser) {
+    }, function(err, fUser) {
       if (fUser) {
         if (fUser.isLogin) {
           Object.assign(fUser, {
@@ -17,7 +19,7 @@ module.exports = function (chat) {
             userType: 'login',
             socketId: ''
           });
-          fUser.save(function (err, obj) {
+          fUser.save(function(err, obj) {
             if (obj) {
               callback && callback(obj)
             }
@@ -28,26 +30,26 @@ module.exports = function (chat) {
   };
 
   chat.on('disconnect', (reason) => {
-    setTimeout(function () {
+    setTimeout(function() {
       connect()
     }, 1000);
   });
   chat.on('disconnecting', (reason) => {
-    setTimeout(function () {
+    setTimeout(function() {
       connect()
     }, 1000);
   });
   chat.on('initAuth', (user, callback) => {
-    if (!user)return;
+    if (!user) return;
     users.findOne({
       name: user.name,
-    }, function (err, fUser) {
+    }, function(err, fUser) {
       Object.assign(fUser, {
         lastLogin: new Date(),
         socketId: chat.id,
         isLogin: true
       });
-      fUser.save(function (err, obj) {
+      fUser.save(function(err, obj) {
         if (obj) {
           callback(obj)
         }
@@ -55,10 +57,11 @@ module.exports = function (chat) {
     })
   });
   chat.on('login', (user, callback) => {
-    if (!user)return;
+    debugger
+    if (!user) return;
     users.findOne({
       name: user.name,
-    }, function (err, fUser) {
+    }, function(err, fUser) {
       if (fUser) {
         if (fUser.password === user.password) {
           if (!fUser.isLogin) {
@@ -68,19 +71,28 @@ module.exports = function (chat) {
               userType: 'login',
               socketId: chat.id
             });
-            fUser.save(function (err, obj) {
+            fUser.save(function(err, obj) {
               if (obj) {
                 callback(obj)
               }
             })
           } else {
-            callback({error: true, message: '该用户已经登录了!'})
+            callback({
+              error: true,
+              message: '该用户已经登录了!'
+            })
           }
         } else {
-          callback({error: true, message: '密码错误!'})
+          callback({
+            error: true,
+            message: '密码错误!'
+          })
         }
       } else {
-        callback({error: true, message: '用户不存在!'})
+        callback({
+          error: true,
+          message: '用户不存在!'
+        })
       }
     })
   });
@@ -89,6 +101,7 @@ module.exports = function (chat) {
   });
   //注册
   chat.on('register', (modal, callback) => {
+    debugger
     const user = new users({
       name: modal.name,
       email: modal.email,
@@ -97,16 +110,17 @@ module.exports = function (chat) {
       joinDate: new Date(),
       userType: 'login'
     });
-    users.find({name: modal.name}, function (err, fObj) {
+    users.find({
+      name: modal.name
+    }, function(err, fObj) {
       if (fObj.length <= 0) {
-        user.save().then(function (obj) {
+        user.save().then(function(obj) {
           if (obj) {
             callback(obj);
           }
         });
       }
     });
-
   });
   return chat;
 };
