@@ -6,11 +6,11 @@ const {
   users
 } = require('./mongo.schema');
 
-module.exports = function(chat) {
-  const connect = function(callback) {
+module.exports = function (chat) {
+  const connect = function (callback) {
     users.findOne({
       socketId: chat.id,
-    }, function(err, fUser) {
+    }, function (err, fUser) {
       if (fUser) {
         if (fUser.isLogin) {
           Object.assign(fUser, {
@@ -19,7 +19,7 @@ module.exports = function(chat) {
             userType: 'login',
             socketId: ''
           });
-          fUser.save(function(err, obj) {
+          fUser.save(function (err, obj) {
             if (obj) {
               callback && callback(obj)
             }
@@ -30,12 +30,12 @@ module.exports = function(chat) {
   };
 
   chat.on('disconnect', (reason) => {
-    setTimeout(function() {
+    setTimeout(function () {
       connect()
     }, 1000);
   });
   chat.on('disconnecting', (reason) => {
-    setTimeout(function() {
+    setTimeout(function () {
       connect()
     }, 1000);
   });
@@ -43,13 +43,12 @@ module.exports = function(chat) {
     if (!user) return;
     users.findOne({
       name: user.name,
-    }, function(err, fUser) {
+    }, function (err, fUser) {
       Object.assign(fUser, {
         lastLogin: new Date(),
         socketId: chat.id,
-        isLogin: true
       });
-      fUser.save(function(err, obj) {
+      fUser.save(function (err, obj) {
         if (obj) {
           callback(obj)
         }
@@ -57,21 +56,19 @@ module.exports = function(chat) {
     })
   });
   chat.on('login', (user, callback) => {
-    debugger
     if (!user) return;
     users.findOne({
       name: user.name,
-    }, function(err, fUser) {
+    }, function (err, fUser) {
       if (fUser) {
         if (fUser.password === user.password) {
           if (!fUser.isLogin) {
             Object.assign(fUser, {
-              isLogin: true,
               lastLogin: new Date(),
               userType: 'login',
               socketId: chat.id
             });
-            fUser.save(function(err, obj) {
+            fUser.save(function (err, obj) {
               if (obj) {
                 callback(obj)
               }
@@ -101,7 +98,6 @@ module.exports = function(chat) {
   });
   //注册
   chat.on('register', (modal, callback) => {
-    debugger
     const user = new users({
       name: modal.name,
       email: modal.email,
@@ -112,15 +108,21 @@ module.exports = function(chat) {
     });
     users.find({
       name: modal.name
-    }, function(err, fObj) {
+    }, function (err, fObj) {
       if (fObj.length <= 0) {
-        user.save().then(function(obj) {
+        user.save().then(function (obj) {
           if (obj) {
             callback(obj);
           }
         });
       }
     });
+  });
+  chat.on('addFriends', (name, callback) => {
+    users.find({'email': name, 'name': {$regex: new RegExp('/.*' + name + '.*/')}}, function (err, fObj) {
+      debugger
+      callback(fObj);
+    })
   });
   return chat;
 };

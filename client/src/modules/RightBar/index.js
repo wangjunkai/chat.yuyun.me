@@ -11,8 +11,20 @@ import classNames from 'classnames'
 import {activeContent, CHAT, FRIENDS, NEWS} from '../../actions/content'
 
 class RightBar extends Component {
+  state = {
+    searchValue: ''
+  };
+
   setActiveWindow = (action) => {
     this.props.activeContent({contentType: action});
+  };
+  inputChange = (event) => {
+    this.setState({searchValue: event.target.value})
+  };
+  searchFriend = () => {
+    const {actions} = this.props;
+/*    actions.createMessage({message: '请等待...', class: constant.NEWS_LOAD});
+    actions['se'](this.state.searchValue);*/
   };
 
   render() {
@@ -69,8 +81,8 @@ class RightBar extends Component {
                 <option value="2">圈组</option>
               </select>
             </div>
-            <input type="text"/>
-            <i className="fa fa-search"></i>
+            <input type="text" onChange={this.inputChange}/>
+            <i className="fa fa-search" onClick={this.searchFriend}></i>
           </div>
           {setDetail()}
         </section>
@@ -78,6 +90,7 @@ class RightBar extends Component {
     )
   }
 }
+
 const mapStateToProps = function (state, ownProps) {
   return {
     content: state.content,

@@ -3,45 +3,37 @@
  */
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import classNames from 'classnames'
 import './toolBar.css'
 import {NEWS_LOAD} from '../../actions'
-import {createAjax} from '../../actions/ajax'
-import {createMessage, clearMessage} from '../../actions/message'
-import {activeContent, CHAT, FRIENDS,NEWS} from '../../actions/content'
+import * as messageActions from '../../actions/message'
+import * as contentActions from '../../actions/content'
 
 
 class ToolBar extends Component {
   componentWillMount() {
-    this.props.activeContent({contentType: CHAT});
+    this.props.actions.activeChat();
   }
 
   setActiveContent = (action) => {
     const pro = this.props;
-    if (action === pro.content.contentType)return;
-    const param = {
-      url: '/chat',
-      beforeAction: () => {
-        pro.createMessage({message: '请等待...', class: NEWS_LOAD})
-      },
-      afterAction: () => {
-        pro.clearMessage();
-      },
-      nextAction: pro.activeContent,
-      contentType: action
-    };
-    pro.createAjax(param);
+    if (action === pro.content.type) return;
+    /*
+        pro.createMessage({message: '请等待...', class: NEWS_LOAD});
+    */
+    pro.actions.activeContent({type: action});
   };
 
   render() {
     const content = this.props.content;
     let comment = {'fa fa-commenting-o': true},
       user = {'fa fa-users': true};
-    switch (content.contentType) {
-      case CHAT:
+    switch (content.type) {
+      case contentActions.ACTIVE_CHAT:
         Object.assign(comment, {active: true});
         break;
-      case FRIENDS:
+      case contentActions.ACTIVE_FRIEND:
         Object.assign(user, {active: true});
         break;
       default:
@@ -50,11 +42,11 @@ class ToolBar extends Component {
     return (
       <section className="tool-bar">
         <div className="tool-bar-buttons">
-          <i className={classNames(comment)} onClick={this.setActiveContent.bind(this, CHAT)}></i>
-          <i className={classNames(user)} onClick={this.setActiveContent.bind(this, FRIENDS)}></i>
+          <i className={classNames(comment)} onClick={this.setActiveContent.bind(this, contentActions.ACTIVE_CHAT)}></i>
+          <i className={classNames(user)} onClick={this.setActiveContent.bind(this, contentActions.ACTIVE_FRIEND)}></i>
           <i className="fa fa-bars"></i>
         </div>
-        <div className="add-user" onClick={this.setActiveContent.bind(this, NEWS)}>
+        <div className="add-user" onClick={this.setActiveContent.bind(this, contentActions.ACTIVE_NEW)}>
           <div className="button app-button fc-at fc-ct">
             <i className="fa fa-plus"></i>
           </div>
@@ -69,10 +61,7 @@ const mapStateToProps = function (state, ownProps) {
     content: state.content,
   }
 };
-
-export default connect(mapStateToProps, {
-  createAjax,
-  activeContent,
-  createMessage,
-  clearMessage
-})(ToolBar);
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(Object.assign({}, contentActions, messageActions), dispatch)
+});
+export default connect(mapStateToProps, mapDispatchToProps)(ToolBar);

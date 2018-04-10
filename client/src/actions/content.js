@@ -9,14 +9,14 @@ export const FRIENDS = 'friendList';
 export const NEWS = 'newList';
 export const ACTIVE_CHAT = 'ACTIVE_CHAT';
 export const ACTIVE_FRIEND = 'ACTIVE_FRIEND';
+export const ACTIVE_NEW = 'ACTIVE_NEW';
 
 
 export const initContentData = {
-  type: '',
-  contentType: CHAT,
-  [CHAT]: [],
-  [FRIENDS]: [],
-  [NEWS]: [],
+  type: ACTIVE_CHAT,
+  [ACTIVE_CHAT]: [],
+  [ACTIVE_FRIEND]: [],
+  [ACTIVE_NEW]: [],
   activeChat: '',
   activeFriend: '',
 };
@@ -25,7 +25,6 @@ export const initContentData = {
 //活动窗口
 export const activeContent = param => {
   return {
-    type: ACTIVE_CONTENT,
     ...param
   };
 };
@@ -35,8 +34,15 @@ export const activeChat = param => {
     ...param
   };
 };
-export const activeFriend = friendData => {
-  const w = Object.assign({}, initContentData, friendData);
-  w.type = ACTIVE_FRIEND;
-  return w;
+export const activeNew = param => {
+  return {
+    type: ACTIVE_NEW,
+    ...param
+  };
+};
+export const activeFriend = param => {
+  return {
+    type: ACTIVE_FRIEND,
+    ...param
+  };
 };

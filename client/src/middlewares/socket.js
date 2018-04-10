@@ -6,7 +6,9 @@ import * as msg from '../actions/message'
 import * as news from '../actions/index'
 
 import io from 'socket.io-client';
+
 const socketPath = 'http://localhost:12302/chat';
+
 class socketApi {
   socket;
 
@@ -50,6 +52,7 @@ class socketApi {
     });
   }
 }
+
 const socket = new socketApi();
 socket.connect();
 

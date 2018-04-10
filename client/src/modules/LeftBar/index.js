@@ -14,6 +14,7 @@ import * as messageActions from '../../actions/message'
 import * as contentActions from '../../actions/content'
 
 import AddUserModal from '../../components/addUserModal'
+
 class LeftBar extends Component {
 
   setActiveChat = (e, chat) => {
@@ -24,21 +25,8 @@ class LeftBar extends Component {
         return c['comments']
       }
     });
-    const param = {
-      url: '/comments/' + chat.id,
-      beforeAction: () => {
-        actions.createMessage({message: '请等待...', class: NEWS_LOAD})
-      },
-      afterAction: () => {
-        actions.clearMessage();
-      },
-      nextAction: actions.activeChat,
-      activeChat: chat.id
-    };
     if (matchCache >= 0) {
       actions.activeChat({activeChat: chat.id})
-    } else {
-      actions.createAjax(param);
     }
   };
   handleShowModal = () => {
@@ -49,8 +37,8 @@ class LeftBar extends Component {
 
   render() {
     let content = this.props.content;
-    const listFun = (contentType) => {
-      const list = content[contentType].map((chat) => {
+    const listFun = (type) => {
+      const list = content[type].map((chat) => {
         const chatClass = classNames({
           'chat': true,
           'active': content.activeChat === chat.id
@@ -74,23 +62,23 @@ class LeftBar extends Component {
     const loadNews = (list) => {
 
     };
-    const {FRIENDS, CHAT, NEWS} = contentActions;
+    const {ACTIVE_CHAT, ACTIVE_NEW, ACTIVE_FRIEND} = contentActions;
     let chat = {'chat-list': true, none: true},
       friends = {'chat-list': true, none: true},
       news = {'chat-list': true, none: true};
     let chatList, friendList, newList;
-    switch (content.contentType) {
-      case CHAT:
+    switch (content.type) {
+      case ACTIVE_CHAT:
         Object.assign(chat, {none: false});
-        chatList = listFun(CHAT);
+        chatList = listFun(ACTIVE_CHAT);
         break;
-      case FRIENDS:
+      case ACTIVE_FRIEND:
         Object.assign(friends, {none: false});
-        friendList = listFun(FRIENDS);
+        friendList = listFun(ACTIVE_FRIEND);
         break;
-      case NEWS:
+      case ACTIVE_NEW:
         Object.assign(news, {none: false});
-        newList = listFun(NEWS);
+        newList = listFun(ACTIVE_NEW);
         break;
       default:
         break;
