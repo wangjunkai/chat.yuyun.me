@@ -114,14 +114,19 @@ module.exports = function (chat) {
           if (obj) {
             callback(obj);
           }
-        });
+        })
       }
-    });
+    })
   });
-  chat.on('addFriends', (name, callback) => {
-    users.find({'email': name, 'name': {$regex: new RegExp('/.*' + name + '.*/')}}, function (err, fObj) {
-      debugger
-      callback(fObj);
+  /*搜索好友*/
+  chat.on('addFriends', (obj, callback) => {
+    users.find({
+      _id: {$ne: obj._id},
+      $or: [{'email': obj.value}, {'name': new RegExp('.*' + obj.value + '.*')}]
+    }, function (err, fObj) {
+      delete obj._id
+      obj.list = fObj;
+      callback(obj);
     })
   });
   return chat;

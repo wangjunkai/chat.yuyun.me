@@ -1,125 +1,127 @@
 /*rightBar css*/
 .right-bar {
-  position: relative;
-  width: 100%;
-  margin-left: 80px;
-  margin-right: 30px;
+    position: relative;
+    width: 100%;
+    margin-left: 80px;
+    margin-right: 30px;
 }
 
 .chat-info {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
-  background-color: #fff;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.4);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.4);
 }
 
 .user-title {
-  height: 50px;
-  border-bottom: 1px solid #cccccc;
+    height: 50px;
+    border-bottom: 1px solid #cccccc;
 }
 
 .chat-record {
-  flex: 1;
+    flex: 1;
 }
 
 .user-send {
-  flex: 0 1 25%;
-  border-top: 1px solid #cccccc;
+    flex: 0 1 25%;
+    border-top: 1px solid #cccccc;
 }
 
 .friends-info,
 .news-info {
-  width: 100%;
-  left: 0;
-  font-size: 14px;
-  line-height: 1.4;
-  color: #757575;
+    width: 100%;
+    left: 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #757575;
 }
 
 .info-detail {
-  position: absolute;
-  top: 25%;
-  width: 100%;
+    position: absolute;
+    top: 25%;
+    width: 100%;
 }
 
 .info-detail .name {
-  font-size: 26px;
-  margin-bottom: 20px;
-  text-shadow: 2px 1px 1px #c1c1c1;
+    font-size: 26px;
+    margin-bottom: 20px;
+    text-shadow: 2px 1px 1px #c1c1c1;
 }
 
-.info-detail .master {
-  margin: 5px 0;
+.info-detail .master,
+.info-detail .date,
+.info-detail .title {
+    margin: 5px 0;
 }
 
 .info-detail .tip {
-  margin-right: 10px;
-  color: #e8e8e8;
-  font-size: 10px;
-  background-color: #757575;
-  padding: 3px 6px;
-  border-radius: 2px;
+    margin-right: 10px;
+    color: #e8e8e8;
+    font-size: 10px;
+    background-color: #757575;
+    padding: 3px 6px;
+    border-radius: 2px;
 }
 
 .info-detail .buttons {
-  margin-top: 35px;
+    margin-top: 35px;
 }
 
 .info-detail .button {
-  width: 60px;
-  height: 60px;
-  font-size: 16px;
+    width: 60px;
+    height: 60px;
+    font-size: 16px;
 }
 
 .news-info .search {
-  width: 65%;
-  position: absolute;
-  font-size: 14px;
-  top: 10%;
+    width: 65%;
+    position: absolute;
+    font-size: 14px;
+    top: 10%;
 }
 
 .news-info .search input {
-  height: 40px;
-  width: 100%;
-  border-radius: 20px;
-  box-shadow: 1px 2px 5px 0 #c1c1c1;
-  padding-left: 5em;
+    height: 40px;
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 1px 2px 5px 0 #c1c1c1;
+    padding-left: 5em;
 }
 
 .news-info .search .fa {
-  position: absolute;
-  line-height: 40px;
-  right: -50px;
-  width: 40px;
-  text-align: center;
-  border-radius: 50%;
-  background-color: #d4d4d4;
-  color: #5d5d5d;
-  cursor: pointer;
-  box-shadow: 1px 1px 5px 0 #484848;
-  transition: all .5s ease;
+    position: absolute;
+    line-height: 40px;
+    right: -50px;
+    width: 40px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #d4d4d4;
+    color: #5d5d5d;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px 0 #484848;
+    transition: all .5s ease;
 }
 
 .news-info .search .fa:hover {
-  background-color: #b3b3b3;
-  color: #ffffff;
-  transition: all .5s ease;
+    background-color: #b3b3b3;
+    color: #ffffff;
+    transition: all .5s ease;
 }
 
 .news-info .select {
-  position: absolute;
-  height: 40px;
-  line-height: 40px;
-  left: 10px;
-  font-size: 14px;
+    position: absolute;
+    height: 40px;
+    line-height: 40px;
+    left: 10px;
+    font-size: 14px;
 }
 
 .news-info select {
-  outline: none;
-  border: 0;
+    outline: none;
+    border: 0;
 }

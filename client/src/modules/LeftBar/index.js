@@ -7,7 +7,6 @@ import _ from 'lodash'
 import './leftBar.css'
 import {connect} from 'react-redux'
 import classNames from 'classnames'
-import {NEWS_LOAD} from '../../actions'
 import * as ajaxActions from '../../actions/ajax'
 import * as modalActions from '../../actions/modal'
 import * as messageActions from '../../actions/message'
@@ -17,34 +16,29 @@ import AddUserModal from '../../components/addUserModal'
 
 class LeftBar extends Component {
 
-  setActiveChat = (e, chat) => {
+  setActiveChat = (chat) => {
     const {content, actions} = this.props;
-    const {chatList} = content;
-    const matchCache = _.findIndex(chatList, (c) => {
-      if (c.id === chat.id) {
-        return c['comments']
-      }
-    });
-    if (matchCache >= 0) {
-      actions.activeChat({activeChat: chat.id})
-    }
+    chat = chat ? chat : content[content.type].list[0];
+    actions.setActive(chat)
   };
   handleShowModal = () => {
     const {actions, auth} = this.props;
     actions.createModal({dom: <AddUserModal actions={actions} auth={auth}/>, class: 'transition-top'})
   };
-
+  componentWillMount = () => {
+    this.setActiveChat()
+  };
 
   render() {
-    let content = this.props.content;
-    const listFun = (type) => {
-      const list = content[type].map((chat) => {
+    let {content, search} = this.props;
+    const listFun = (userList) => {
+      const list = userList.map((chat) => {
         const chatClass = classNames({
           'chat': true,
-          'active': content.activeChat === chat.id
+          'active': content[content.type].active._id === chat._id
         });
         return (
-          <div className={chatClass} key={chat.id} onClick={(e) => this.setActiveChat(e, chat)}>
+          <div className={chatClass} key={chat._id} onClick={(e) => this.setActiveChat(chat)}>
             <div className="icon fc-fx">
               <i className="fa fa-user fc-at"></i>
               <span className="fc-nu">{chat.time}</span>
@@ -70,15 +64,15 @@ class LeftBar extends Component {
     switch (content.type) {
       case ACTIVE_CHAT:
         Object.assign(chat, {none: false});
-        chatList = listFun(ACTIVE_CHAT);
+        chatList = listFun(content[ACTIVE_CHAT].list);
         break;
       case ACTIVE_FRIEND:
         Object.assign(friends, {none: false});
-        friendList = listFun(ACTIVE_FRIEND);
+        friendList = listFun(content[ACTIVE_FRIEND].list);
         break;
       case ACTIVE_NEW:
         Object.assign(news, {none: false});
-        newList = listFun(ACTIVE_NEW);
+        newList = listFun(search.list);
         break;
       default:
         break;
@@ -110,6 +104,7 @@ const mapStateToProps = function (state) {
   return {
     auth: state.auth,
     content: state.content,
+    search: state.search
   }
 };
 const mapDispatchToProps = dispatch => ({

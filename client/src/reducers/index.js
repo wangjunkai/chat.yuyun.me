@@ -14,5 +14,5 @@ export default combineReducers({
   modal,
   auth,
   content,
-  /*user*/
+  ...user
 })

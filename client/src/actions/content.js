@@ -4,21 +4,26 @@
 
 //窗口切换状态
 export const ACTIVE_CONTENT = 'ACTIVE_CONTENT';
-export const CHAT = 'chatList';
-export const FRIENDS = 'friendList';
-export const NEWS = 'newList';
 export const ACTIVE_CHAT = 'ACTIVE_CHAT';
 export const ACTIVE_FRIEND = 'ACTIVE_FRIEND';
 export const ACTIVE_NEW = 'ACTIVE_NEW';
+export const SET_ACTIVE = 'SET_ACTIVE'
 
 
 export const initContentData = {
   type: ACTIVE_CHAT,
-  [ACTIVE_CHAT]: [],
-  [ACTIVE_FRIEND]: [],
-  [ACTIVE_NEW]: [],
-  activeChat: '',
-  activeFriend: '',
+  [ACTIVE_CHAT]: {
+    active: '',
+    list: []
+  },
+  [ACTIVE_FRIEND]: {
+    active: '',
+    list: []
+  },
+  [ACTIVE_NEW]: {
+    active: '',
+    list: []
+  }
 };
 
 
@@ -44,5 +49,11 @@ export const activeFriend = param => {
   return {
     type: ACTIVE_FRIEND,
     ...param
+  };
+};
+export const setActive = param => {
+  return {
+    type: SET_ACTIVE,
+    active: param
   };
 };
