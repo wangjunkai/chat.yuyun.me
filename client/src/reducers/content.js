@@ -7,10 +7,11 @@ import {
 } from '../actions/content'
 
 export default function content(preState = initContentData, action) {
-  let newState, list;
+  let newState, list = [];
   switch (action.type) {
     case ACTIVE_NEW:
       newState = Object.assign({}, preState, {type: action.type});
+      newState[action.type].list = action.list;
       return newState;
     case ACTIVE_CHAT:
       newState = Object.assign({}, preState, {type: action.type});
@@ -26,12 +27,20 @@ export default function content(preState = initContentData, action) {
       return newState;
     case ACTIVE_FRIEND:
       newState = Object.assign({}, preState, {type: action.type});
-      list = [
-        {_id: '1', time: '10:22', name: 'wjk', message: '123'},
-        {_id: '2', time: '10:22', name: 'sdfsdsf', message: '历史课角度来看时间到了分解落实'},
-        {_id: '3', time: '10:22', name: 'sdfxc', message: '历史课角度来看时间到了分解落实'},
-        {_id: '4', time: '10:22', name: 'sdfxcasaaaa', message: '历史课角度来看时间到了分解落实'}
-      ];
+      const fl = action.ship_list
+      let requestList = [], shipList = []
+      for (const l in fl) {
+        if (fl[l].status === 2) {
+          requestList.push(fl[l])
+        } else {
+          shipList.push(fl[l])
+        }
+      }
+      requestList.sort((a, b) => {
+        return new Date(b.requestDate) - new Date(a.requestDate)
+      })
+      list = requestList.concat(shipList)
+      newState[action.type].active = ''
       newState[action.type].list = list;
       return newState;
     default:

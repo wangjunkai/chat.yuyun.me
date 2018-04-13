@@ -4,6 +4,7 @@
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import _ from 'lodash'
+import format from 'dateFormat'
 import './leftBar.css'
 import {connect} from 'react-redux'
 import classNames from 'classnames'
@@ -26,7 +27,7 @@ class LeftBar extends Component {
     actions.createModal({dom: <AddUserModal actions={actions} auth={auth}/>, class: 'transition-top'})
   };
   componentWillMount = () => {
-    this.setActiveChat()
+    //this.setActiveChat()
   };
 
   render() {
@@ -37,12 +38,25 @@ class LeftBar extends Component {
           'chat': true,
           'active': content[content.type].active._id === chat._id
         });
-        return (
-          <div className={chatClass} key={chat._id} onClick={(e) => this.setActiveChat(chat)}>
+        let tipText = '';
+        if (chat.status === 2) {
+          tipText = (
             <div className="icon fc-fx">
               <i className="fa fa-user fc-at"></i>
-              <span className="fc-nu">{chat.time}</span>
+              <span className="fc-nu">{format(chat.requestDate, 'yyyy-mm-dd HH:MM:ss')}</span>
+              <p className="tip">请求添加您为好友</p>
             </div>
+          )
+        } else {
+          tipText = (
+            <div className="icon fc-fx">
+              <i className="fa fa-user fc-at"></i>
+            </div>
+          )
+        }
+        return (
+          <div className={chatClass} key={chat._id} onClick={(e) => this.setActiveChat(chat)}>
+            {tipText}
             <p className="name">{chat.name}</p>
             <p>{chat.message}</p>
           </div>

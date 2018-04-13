@@ -17,12 +17,16 @@ class ToolBar extends Component {
   }
 
   setActiveContent = (action) => {
-    const pro = this.props;
-    if (action === pro.content.type) return;
-    /*
-        pro.createMessage({message: '请等待...', class: NEWS_LOAD});
-    */
-    pro.actions.activeContent({type: action});
+    const {actions, content} = this.props;
+    if (action === content.type) return;
+    switch (action) {
+      case contentActions.ACTIVE_FRIEND:
+        actions.activeFriend();
+        break;
+      default:
+        actions.activeContent({type: action});
+        break;
+    }
   };
 
   render() {

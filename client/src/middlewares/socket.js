@@ -32,7 +32,6 @@ class socketApi {
   emit(event, data) {
     return new Promise((resolve, reject) => {
       if (!this.socket) return reject('No socket connection.');
-
       return this.socket.emit(event, data, (response) => {
         if (response.error) {
           return reject(response);
@@ -65,7 +64,7 @@ export default store => next => action => {
 
   return sock(socket)
     .then((result) => {
-      after && after(store.dispatch);
+      after && after(store.dispatch, result);
       next({...result, type: action.type});
     })
     .catch((error) => {

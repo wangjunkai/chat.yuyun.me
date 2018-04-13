@@ -3,6 +3,7 @@
  */
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
+import _format from 'dateFormat'
 import CharRecord from './ChatRecord'
 import UserSend from './UserSend'
 import UserTitle from './UserTitle'
@@ -13,6 +14,7 @@ import {NEWS_LOAD} from '../../actions/index'
 import * as messageActions from '../../actions/message'
 import * as contentActions from '../../actions/content'
 import * as userActions from '../../actions/user'
+
 
 class RightBar extends Component {
   state = {
@@ -25,6 +27,20 @@ class RightBar extends Component {
   setActiveWindow = (action) => {
     this.props.activeContent({contentType: action});
   };
+  askFriends = () => {
+    const {content, actions} = this.props;
+    actions.createMessage({message: '请等待...', class: NEWS_LOAD});
+    actions.askFriends(content[content.type].active)
+  };
+  addFriends = () => {
+    const {content, actions} = this.props;
+    actions.createMessage({message: '请等待...', class: NEWS_LOAD});
+    actions.addFriends(content[content.type].active)
+  };
+  removeFriends = () => {
+    const {content, actions} = this.props;
+    actions.removeFriends(content[content.type].active)
+  }
   inputChange = (event) => {
     let search = this.state.search
     if (event.target.nodeName.toLowerCase() === 'select') {
@@ -59,21 +75,57 @@ class RightBar extends Component {
         break;
     }
     let setDetail = () => {
-      return (
-        <div className="info-detail">
-          <div className="name">wjk开发团</div>
-          <div className="date"><span className="tip">创建日期</span>2017-5-8</div>
-          <div className="master"><span className="tip">管理员</span>微机课</div>
-          <div className="title"><span className="tip">介绍</span>算啦空间的开发绿色记得了</div>
+      const data = content[content.type].active;
+      if (!data) {
+        return (
+          <div className="info-detail" style={{textAlign: 'center'}}>
+            <img src="public/image/home-bg-4.jpg" alt=""/>
+            <p>选择你喜欢的对象去交流</p>
+          </div>
+        )
+      }
+      let buttons = '', requestDate = '';
+      if (data.status === 2) {
+        requestDate = (
+          <div className="date">
+            <span className="tip">请求日期</span>{_format(data.requestDate, 'yyyy-mm-dd HH:MM:ss')}
+          </div>
+        )
+        buttons = (
+          <div className="buttons fc-fx fc-lr">
+            <div className="app-button button fc-nu fc-ct"
+                 onClick={this.addFriends}>
+              <i className="fa fa-check"></i>
+            </div>
+            <div className="app-button app-button_close button fc-nu fc-ct"
+                 onClick={this.removeFriends}
+                 style={{marginLeft: '10px'}}>
+              <i className="fa fa-times"></i>
+            </div>
+            <div className="fc-at"></div>
+          </div>
+        )
+      } else {
+        buttons = (
           <div className="buttons fc-fx fc-lr">
             <div className="app-button button fc-nu fc-ct"
                  onClick={this.setActiveWindow.bind(this, contentActions.ACTIVE_CHAT)}>
               <i className="fa fa-commenting-o"></i>
             </div>
-            <div className="app-button button fc-nu fc-ct" style={{marginLeft: '10px'}}><i className="fa fa-cogs"></i>
+            <div className="app-button button fc-nu fc-ct" style={{marginLeft: '10px'}}>
+              <i className="fa fa-cogs"></i>
             </div>
             <div className="fc-at"></div>
           </div>
+        )
+      }
+      return (
+        <div className="info-detail">
+          <div className="name">{data.name}</div>
+          <div className="date"><span className="tip">创建日期</span>{_format(data.joinDate, 'isoDate')}</div>
+          {requestDate}
+          <div className="title"><span className="tip">介绍</span>算啦空间的开发绿色记得了</div>
+          {buttons}
         </div>
       )
     };
@@ -88,11 +140,9 @@ class RightBar extends Component {
           <div className="date"><span className="tip">创建日期</span>{data.joinDate}</div>
           <div className="title"><span className="tip">介绍</span>算啦空间的开发绿色记得了</div>
           <div className="buttons fc-fx fc-lr">
-            <div className="app-button button fc-nu fc-ct"
-                 onClick={this.setActiveWindow.bind(this, contentActions.ACTIVE_CHAT)}>
-              <i className="fa fa-commenting-o"></i>
-            </div>
-            <div className="app-button button fc-nu fc-ct" style={{marginLeft: '10px'}}><i className="fa fa-cogs"></i>
+            <div className="app-button app-button_add button fc-nu fc-ct "
+                 onClick={this.askFriends}>
+              添加好友
             </div>
             <div className="fc-at"></div>
           </div>

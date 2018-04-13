@@ -6,7 +6,7 @@ const paths = require('./paths');
 const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
 const host = process.env.HOST || '0.0.0.0';
 
-module.exports = function(allowedHost) {
+module.exports = function (allowedHost) {
   return {
     // Enable gzip compression of generated files.
     compress: true,

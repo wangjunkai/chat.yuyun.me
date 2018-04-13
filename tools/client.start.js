@@ -9,6 +9,7 @@ process.env.NODE_ENV = 'development';
 const http = require('http');
 const express = require('express');
 const app = express();
+const path = require('path')
 const webpack = require('webpack');
 const proxy = require('http-proxy-middleware');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
@@ -29,7 +30,6 @@ const {port, host, apiPort} = require('./config/express.server');
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
   process.exit(1);
 }
-
 //检测端口
 choosePort(host, port)
   .then(port => {
@@ -53,6 +53,7 @@ choosePort(host, port)
       logLevel: 'debug'
     });
     app.use(wsProxy);
+    app.use('/', express.static(path.resolve(__dirname, '../client')));
     const server = http.createServer(app);
     server.listen(port, host, function () {
       console.log('Client Server listening at port %d', port);

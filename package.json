@@ -55,6 +55,7 @@
   "dependencies": {
     "bluebird": "^3.5.0",
     "classnames": "^2.2.5",
+    "dateformat": "^3.0.3",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.4",
     "mongoose": "^4.11.11",

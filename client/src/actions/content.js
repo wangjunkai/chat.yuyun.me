@@ -45,12 +45,16 @@ export const activeNew = param => {
     ...param
   };
 };
-export const activeFriend = param => {
-  return {
+export const activeFriend = (modalData) => (dispatch, getState) => {
+  const state = getState()
+  dispatch({
     type: ACTIVE_FRIEND,
-    ...param
-  };
-};
+    promise: {
+      sock: (socket) => socket.emit('getShip', state.auth._id)
+    }
+  })
+}
+
 export const setActive = param => {
   return {
     type: SET_ACTIVE,

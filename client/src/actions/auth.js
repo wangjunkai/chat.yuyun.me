@@ -13,6 +13,7 @@ export const REGISTER = 'register';
 
 
 export const initUser = {
+  _id: '',
   type: '',
   isLogin: false,
   isAutoLogin: false,

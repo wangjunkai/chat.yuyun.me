@@ -78,6 +78,17 @@
     font-size: 16px;
 }
 
+.info-detail .app-button_add {
+    border-radius: 100px;
+    height: 30px;
+    font-size: 14px;
+    width: 100px;
+}
+
+.info-detail .app-button_close {
+    background-color: #FF9800
+}
+
 .news-info .search {
     width: 65%;
     position: absolute;
