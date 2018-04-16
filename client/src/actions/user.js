@@ -27,8 +27,8 @@ export const searchFriends = (modalData) => (dispatch, getState) => {
     type: SEARCH_FRIENDS,
     promise: {
       sock: (socket) => socket.emit('searchFriends', modalData),
-      after: (dispatch, result) => {
-        dispatch(contentAction.activeNew({list: result.list}));
+      after: (dispatch, {_result}) => {
+        dispatch(contentAction.activeNew({list: _result.list}));
         dispatch(messageAction.clearMessage())
       }
     }
@@ -57,8 +57,8 @@ export const addFriends = (modalData) => (dispatch, getState) => {
     type: ADD_FRIENDS,
     promise: {
       sock: (socket) => socket.emit('addFriends', modalData),
-      after: (dispatch, result) => {
-        dispatch(contentAction.activeContent({type: contentAction.ACTIVE_FRIEND, ...result}));
+      after: (dispatch, {_result}) => {
+        dispatch(contentAction.activeContent({type: contentAction.ACTIVE_FRIEND, ..._result}));
         dispatch(messageAction.createMessage({message: '添加成功!', class: constant.NEWS_OK, delay: 2000}))
       }
     }
@@ -72,8 +72,8 @@ export const removeFriends = (modalData) => (dispatch, getState) => {
     type: REMOVE_FRIENDS,
     promise: {
       sock: (socket) => socket.emit('removeFriends', modalData),
-      after: (dispatch, result) => {
-        dispatch(contentAction.activeContent({type: contentAction.ACTIVE_FRIEND, ...result}));
+      after: (dispatch, {_result}) => {
+        dispatch(contentAction.activeContent({type: contentAction.ACTIVE_FRIEND, ..._result}));
       }
     }
   })

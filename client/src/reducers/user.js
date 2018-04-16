@@ -7,9 +7,11 @@ import {
 } from '../actions/user'
 
 function search(preState = initSearchFriendsData, action) {
-  switch (action.type) {
+  let _type = action.type
+  let _action = action['_result'] === undefined ? action : action['_result']
+  switch (_type) {
     case SEARCH_FRIENDS:
-      return Object.assign({}, preState, {...action});
+      return Object.assign({}, preState, {..._action});
     default:
       return preState
   }

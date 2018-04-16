@@ -134,11 +134,25 @@ class RightBar extends Component {
       if (!data) {
         return ''
       }
-      return (
-        <div className="info-detail">
-          <div className="name">{data.name}</div>
-          <div className="date"><span className="tip">创建日期</span>{data.joinDate}</div>
-          <div className="title"><span className="tip">介绍</span>算啦空间的开发绿色记得了</div>
+      let buttons = '',tip=''
+      if (data.status === 1) {
+        tip = (
+          <span className="tip-isFriends">已经是您的好友了，开始聊天吧！</span>
+        )
+        buttons = (
+          <div className="buttons fc-fx fc-lr">
+            <div className="app-button button fc-nu fc-ct"
+                 onClick={this.setActiveWindow.bind(this, contentActions.ACTIVE_CHAT)}>
+              <i className="fa fa-commenting-o"></i>
+            </div>
+            <div className="app-button button fc-nu fc-ct" style={{marginLeft: '10px'}}>
+              <i className="fa fa-cogs"></i>
+            </div>
+            <div className="fc-at"></div>
+          </div>
+        )
+      } else {
+        buttons = (
           <div className="buttons fc-fx fc-lr">
             <div className="app-button app-button_add button fc-nu fc-ct "
                  onClick={this.askFriends}>
@@ -146,6 +160,14 @@ class RightBar extends Component {
             </div>
             <div className="fc-at"></div>
           </div>
+        )
+      }
+      return (
+        <div className="info-detail">
+          <div className="name">{data.name}{tip}</div>
+          <div className="date"><span className="tip">创建日期</span>{data.joinDate}</div>
+          <div className="title"><span className="tip">介绍</span>算啦空间的开发绿色记得了</div>
+          {buttons}
         </div>
       )
     };

@@ -7,7 +7,7 @@ export const ACTIVE_CONTENT = 'ACTIVE_CONTENT';
 export const ACTIVE_CHAT = 'ACTIVE_CHAT';
 export const ACTIVE_FRIEND = 'ACTIVE_FRIEND';
 export const ACTIVE_NEW = 'ACTIVE_NEW';
-export const SET_ACTIVE = 'SET_ACTIVE'
+export const SET_SEARCH_ACTIVE = 'SET_SEARCH_ACTIVE'
 
 
 export const initContentData = {
@@ -55,9 +55,13 @@ export const activeFriend = (modalData) => (dispatch, getState) => {
   })
 }
 
-export const setActive = param => {
-  return {
-    type: SET_ACTIVE,
-    active: param
-  };
-};
+export const setSearchFriendsActive = (modalData) => (dispatch, getState) => {
+  const state = getState()
+  modalData._sign = state.auth._id
+  dispatch({
+    type: SET_SEARCH_ACTIVE,
+    promise: {
+      sock: (socket) => socket.emit('getShip_OneById', modalData)
+    }
+  })
+}

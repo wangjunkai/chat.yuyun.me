@@ -64,8 +64,11 @@ export default store => next => action => {
 
   return sock(socket)
     .then((result) => {
-      after && after(store.dispatch, result);
-      next({...result, type: action.type});
+      const _result = {
+        _result: result
+      }
+      after && after(store.dispatch, _result);
+      next({..._result, type: action.type});
     })
     .catch((error) => {
       setTimeout(() => {

@@ -20,7 +20,7 @@ class LeftBar extends Component {
   setActiveChat = (chat) => {
     const {content, actions} = this.props;
     chat = chat ? chat : content[content.type].list[0];
-    actions.setActive(chat)
+    actions.setSearchFriendsActive(chat)
   };
   handleShowModal = () => {
     const {actions, auth} = this.props;

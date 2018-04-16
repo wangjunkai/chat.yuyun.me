@@ -18,5 +18,4 @@ module.exports = function(){
   db.on('connected', function () {
     console.log('connection mongodb ok!!!')
   });
-};
-  
+};  

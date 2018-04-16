@@ -123,10 +123,18 @@ module.exports = function (chat) {
   chat.on('getShip', (_id, callback) => {
     ships.findOne({
       ship_id: _id
-    }, function (err, fUser) {
-      callback(fUser)
+    }, function (err, shipUser) {
+      callback(shipUser || {})
     })
   })
+  /*验证是否已经添加为好友*/
+  chat.on('getShip_OneById', (obj, callback) => {
+    ships.findOne({ship_id: obj._sign}, function (err, shipUser) {
+      const n = (shipUser && shipUser.ship_list[obj._id]) || obj
+      callback(n)
+    })
+  })
+
   /*搜索好友*/
   chat.on('searchFriends', (obj, callback) => {
     users.find({
@@ -138,19 +146,21 @@ module.exports = function (chat) {
       callback(obj);
     })
   });
+
+
   /*添加好友*/
-  chat.on('askFriends', (obj, callback) => {
-    ships.findOne({ship_id: obj._id}, function (err, shipUser) {
+  function _setBothFriends(_sign, _id, _status, callback) {
+    ships.findOne({ship_id: _sign}, function (err, shipUser) {
       const ship = shipUser ? shipUser : new ships({
-        ship_id: obj._id
+        ship_id: _sign
       });
 
       ship.save().then(function (shipObj) {
-        users.findOne({_id: obj._sign}, function (err, requestUser) {
+        users.findOne({_id: _id}, function (err, requestUser) {
           shipObj.ship_list || (shipObj.ship_list = {})
           Object.assign(shipObj.ship_list, {
-            [obj._sign]: Object.assign({}, requestUser._doc, {
-              status: 2,
+            [_id]: Object.assign({}, requestUser._doc, {
+              status: _status,
               requestDate: new Date()
             })
           })
@@ -160,14 +170,18 @@ module.exports = function (chat) {
             }
           }).then(function (obj) {
             if (obj) {
-              callback(obj)
+              callback && callback(obj)
             }
           })
         })
       })
     })
+  }
+
+  /*发送添加好友请求*/
+  chat.on('askFriends', (obj, callback) => {
+    _setBothFriends(obj._id, obj._sign, 2, callback)
   });
-  /*添加好友*/
   chat.on('addFriends', (obj, callback) => {
     ships.findOne({ship_id: obj._sign}, function (err, shipUser) {
       Object.assign(shipUser.ship_list, {
@@ -179,8 +193,9 @@ module.exports = function (chat) {
         $set: {
           'ship_list': shipUser.ship_list
         }
-      }).then(function (obj) {
-        if (obj) {
+      }).then(function (res) {
+        if (res) {
+          _setBothFriends(obj._id, obj._sign, 1);
           callback(shipUser)
         }
       })

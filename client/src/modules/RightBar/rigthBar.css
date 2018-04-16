@@ -53,6 +53,12 @@
     text-shadow: 2px 1px 1px #c1c1c1;
 }
 
+.info-detail .tip-isFriends {
+    font-size: 12px;
+    padding: 0 10px;
+    color: #FF9800;
+}
+
 .info-detail .master,
 .info-detail .date,
 .info-detail .title {

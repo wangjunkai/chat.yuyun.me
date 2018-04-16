@@ -14,12 +14,12 @@ export default function auth(preState = initUser, action) {
       if (newAction) {
         returnAction = {...JSON.parse(newAction), isLogin: true, isAutoLogin: true}
       } else {
-        returnAction = {...action}
+        returnAction = {...action._result}
       }
       return _.assign({}, preState, returnAction);
     case TOURISTS:
     case LOGIN:
-      const newState = _.assign({}, preState, {...action}, {isLogin: true});
+      const newState = _.assign({}, preState, {...action._result}, {isLogin: true});
       sessionStorage.setItem(STORAGE_ID, JSON.stringify(newState));
       return newState;
     case LOGOUT:
