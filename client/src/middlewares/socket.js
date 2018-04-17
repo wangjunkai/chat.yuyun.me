@@ -67,8 +67,8 @@ export default store => next => action => {
       const _result = {
         _result: result
       }
-      after && after(store.dispatch, _result);
       next({..._result, type: action.type});
+      after && after(store.dispatch, _result);
     })
     .catch((error) => {
       setTimeout(() => {

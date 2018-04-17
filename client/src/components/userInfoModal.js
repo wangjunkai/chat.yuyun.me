@@ -37,17 +37,17 @@ export default class userInfoModal extends Component {
           <div className="fc-fx fc-lr">
             <div className="form-input">
               <div>账号</div>
-              <input type="text" value={auth.name}/>
+              <input type="text" defaultValue={auth.name} />
             </div>
             <div className="form-input">
               <div>密码</div>
-              <input type="text" value={auth.password}/>
+              <input type="text" defaultValue={auth.password}/>
             </div>
           </div>
           <div className="fc-at">
             <div className="form-input">
               <div>邮箱</div>
-              <input type="text" value={auth.mail}/>
+              <input type="text" defaultValue={auth.mail}/>
             </div>
           </div>
         </div>

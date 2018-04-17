@@ -3,7 +3,7 @@
  * Created by wangjunkai on 2017/8/1.
  */
 import {
-  ACTIVE_NEW, ACTIVE_CHAT, ACTIVE_FRIEND, initContentData, SET_SEARCH_ACTIVE
+  ACTIVE_NEW, ACTIVE_CHAT, ACTIVE_FRIEND, initContentData, SET_SEARCH_ACTIVE, INIT_CONTETN
 } from '../actions/content'
 
 export default function content(preState = initContentData, action) {
@@ -17,10 +17,7 @@ export default function content(preState = initContentData, action) {
       return newState;
     case ACTIVE_CHAT:
       newState = Object.assign({}, preState, {type: _type});
-      list = [
-        {_id: '1', time: '10:22', name: 'wjk', message: 'fdfg'},
-        {_id: '2', time: '10:22', name: 'sdfsdsf', message: '121212'},
-      ];
+      list = [];
       newState[_type].list = list;
       return newState;
     case SET_SEARCH_ACTIVE:
@@ -45,6 +42,7 @@ export default function content(preState = initContentData, action) {
       newState[_type].active = ''
       newState[_type].list = list;
       return newState;
+    case INIT_CONTETN:
     default:
       return preState
   }

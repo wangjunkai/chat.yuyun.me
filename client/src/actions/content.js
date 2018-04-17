@@ -5,6 +5,7 @@
 //窗口切换状态
 export const ACTIVE_CONTENT = 'ACTIVE_CONTENT';
 export const ACTIVE_CHAT = 'ACTIVE_CHAT';
+export const INIT_CONTETN = 'INIT_CONTETN';
 export const ACTIVE_FRIEND = 'ACTIVE_FRIEND';
 export const ACTIVE_NEW = 'ACTIVE_NEW';
 export const SET_SEARCH_ACTIVE = 'SET_SEARCH_ACTIVE'
@@ -26,7 +27,11 @@ export const initContentData = {
   }
 };
 
-
+export const initContent = ()=>{
+  return {
+    type: INIT_CONTETN
+  }
+}
 //活动窗口
 export const activeContent = param => {
   return {

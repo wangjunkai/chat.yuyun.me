@@ -19,13 +19,14 @@ import * as modalActions from '../../actions/modal'
 import * as messageActions from '../../actions/message'
 
 const session = JSON.parse(sessionStorage.getItem(constant.STORAGE_ID));
+
 //app模板
 class AuthTmp extends Component {
 
   //表单状态
   state = {
     formNo: false,//是否通过验证
-    formType: authActions.TOURISTS,
+    formType: authActions.LOGIN,
     formBody: {
       name: '',
       mail: '',
@@ -90,20 +91,6 @@ class AuthTmp extends Component {
     });
     let AuthForm;
     switch (this.state.formType) {
-      case authActions.TOURISTS:
-        AuthForm = (
-          <div className={touristsClass}>
-            <div className="form_group">
-              <input type="text" className="form_input" name="name" ref="name"
-                     onChange={this.handleChange.bind(this)}
-                     placeholder="输入昵称"/>
-            </div>
-            <div className="form-group">
-              <button onClick={this.handleClick.bind(this)} className="form_button">登入</button>
-            </div>
-          </div>
-        );
-        break;
       case authActions.LOGIN:
         AuthForm = (
           <div className={touristsClass}>
@@ -160,7 +147,6 @@ class AuthTmp extends Component {
             {AuthForm}
           </div>
           <div className="auth-title">
-            以 <span onClick={this.handleFormType.bind(this, authActions.TOURISTS)}>游客身份登录</span>，
             以 <span onClick={this.handleFormType.bind(this, authActions.LOGIN)}>账号登陆</span>，
             还没账号? <span onClick={this.handleFormType.bind(this, authActions.REGISTER)}>注册</span></div>
         </div>
@@ -290,6 +276,7 @@ class App extends Component {
     );
   }
 }
+
 const mapStateToProps = function (state) {
   return {
     auth: state.auth,

@@ -1,8 +1,16 @@
 /**
+ *
  * Created by wangjunkai on 2017/7/14.
  */
+import React from 'react'
+import ReactDOM, {render} from 'react-dom'
+import Root from '../root'
+
 import * as messageAction from './message'
 import * as modalAction from './modal'
+import * as contentAction from './content'
+import * as userAction from './user'
+
 import * as constant from './index'
 
 export const INITAUTH = 'initAuth';
@@ -58,7 +66,10 @@ export const logout = () => ({
   promise: {
     sock: (socket) => socket.emit('logout'),
     after: (dispatch) => {
-      dispatch(modalAction.clearModal())
+      ReactDOM.unmountComponentAtNode(document.getElementsByClassName('root')[0]);
+      setTimeout(() => {
+        window.location.reload()
+      }, 0)
     }
   }
 });

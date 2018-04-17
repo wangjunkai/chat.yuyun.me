@@ -24,7 +24,7 @@ export default function auth(preState = initUser, action) {
       return newState;
     case LOGOUT:
       sessionStorage.removeItem(STORAGE_ID);
-      return _.assign({}, preState, initUser);
+      return _.assign({}, initUser);
     case REGISTER:
       return _.assign({}, preState, {isLogin: false, isAutoLogin: false});
     default:

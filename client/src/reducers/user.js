@@ -3,7 +3,7 @@
  * Created by wangjunkai on 2017/8/1.
  */
 import {
-  SEARCH_FRIENDS, initSearchFriendsData
+  SEARCH_FRIENDS, initSearchFriendsData, INIT_SEARCHFRIENDS
 } from '../actions/user'
 
 function search(preState = initSearchFriendsData, action) {
@@ -12,6 +12,7 @@ function search(preState = initSearchFriendsData, action) {
   switch (_type) {
     case SEARCH_FRIENDS:
       return Object.assign({}, preState, {..._action});
+    case INIT_SEARCHFRIENDS:
     default:
       return preState
   }

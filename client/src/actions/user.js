@@ -5,7 +5,7 @@ import * as messageAction from './message'
 import * as contentAction from './content'
 import * as constant from './index'
 
-
+export const INIT_SEARCHFRIENDS = 'INIT_SEARCHFRIENDS'
 export const SEARCH_FRIENDS = 'SEARCH_FRIENDS';
 export const ADD_FRIENDS = 'ADD_FRIENDS';
 export const ASK_FRIENDS = 'ASK_FRIENDS';
@@ -18,6 +18,12 @@ export const initSearchFriendsData = {
   value: '',
   type: ''
 };
+
+export const initSearchFriends = () => {
+  return {
+    type: INIT_SEARCHFRIENDS
+  }
+}
 
 //搜索好友
 export const searchFriends = (modalData) => (dispatch, getState) => {
